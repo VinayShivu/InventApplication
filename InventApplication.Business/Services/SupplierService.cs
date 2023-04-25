@@ -1,4 +1,6 @@
 ﻿using InventApplication.Domain.DTOs;
+using InventApplication.Domain.Exceptions;
+using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
 using InventApplication.Domain.Models;
@@ -27,24 +29,59 @@ namespace InventApplication.Business.Services
             return retVal ? newSupplier.SupplierName : null;
         }
 
-        public Task<bool> DeleteSupplier(int supplierid)
+        public async Task<IEnumerable<SupplierDto>> GetAllSupplierAsync()
         {
-            throw new NotImplementedException();
+            var result = await _supplierRepository.GetAllSupplierAsync();
+
+            return result.Select(supplier => supplier)
+          .Select(supplier => new SupplierDto
+          {
+              SupplierId = supplier.SupplierId,
+              SupplierName = supplier.SupplierName,
+              SupplierGST = supplier.SupplierGST,
+              Email = supplier.Email,
+              Phone = supplier.Phone,
+              Address = supplier.Address
+          });
         }
 
-        public Task<IEnumerable<SupplierDto>> GetAllSupplierAsync()
+        public async Task<Supplier> GetSupplierByIdAsync(int supplierid)
         {
-            throw new NotImplementedException();
+            var supplier = await _supplierRepository.GetSupplierByIdAsync(supplierid);
+            if (supplier == null)
+            {
+                throw new RepositoryException(Messages.InvalidSupplierId);
+            }
+            return supplier;
         }
 
-        public Task<Supplier> GetSupplierByIdAsync(int supplierid)
+        public async Task<bool> UpdateSupplier(SupplierDto supplierRequestUpdateDto, int supplierid)
         {
-            throw new NotImplementedException();
+            var supplier = await _supplierRepository.GetSupplierByIdAsync(supplierid);
+            if (supplier == null)
+            {
+                throw new RepositoryException(Messages.InvalidSupplierId);
+            }
+            else
+            {
+                supplier.SupplierName = supplierRequestUpdateDto.SupplierName;
+                supplier.SupplierGST = supplierRequestUpdateDto.SupplierGST;
+                supplier.Email = supplierRequestUpdateDto.Email;
+                supplier.Phone = supplierRequestUpdateDto.Phone;
+                supplier.Address = supplierRequestUpdateDto.Address;
+                var retval = await _supplierRepository.UpdateSupplier(supplier, supplierid);
+                return retval;
+            }
         }
 
-        public Task<bool> UpdateSupplier(SupplierDto supplierRequestUpdateDto, int supplierid)
+        public async Task<bool> DeleteSupplier(int supplierid)
         {
-            throw new NotImplementedException();
+            var supplier = await _supplierRepository.GetSupplierByIdAsync(supplierid);
+            if (supplier == null)
+            {
+                throw new RepositoryException(Messages.InvalidSupplierId);
+            }
+            return await _supplierRepository.DeleteSupplier(supplierid);
         }
     }
 }

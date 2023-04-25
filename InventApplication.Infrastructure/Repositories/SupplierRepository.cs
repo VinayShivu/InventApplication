@@ -25,24 +25,53 @@ namespace InventApplication.Infrastructure.Repositories
             return result > 0;
         }
 
-        public Task<bool> DeleteSupplier(int supplierid)
+        public async Task<IEnumerable<Supplier>> GetAllSupplierAsync()
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+            {
+                string sql = @"SELECT * FROM supplier";
+                connection.Open();
+                var result = await connection.QueryAsync<Supplier>(sql);
+                connection.Close();
+                return result;
+            }
         }
 
-        public Task<IEnumerable<Supplier>> GetAllSupplierAsync()
+        public async Task<Supplier> GetSupplierByIdAsync(int supplierid)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+            {
+                string sql = @"SELECT * FROM supplier WHERE supplierid=@supplierid";
+                connection.Open();
+                var result = await connection.QueryAsync<Supplier>(sql, new { SupplierId = supplierid });
+                connection.Close();
+                return result.FirstOrDefault();
+            }
         }
 
-        public Task<Supplier> GetSupplierByIdAsync(int supplierid)
+        public async Task<bool> UpdateSupplier(Supplier supplierUpdate, int supplierid)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+            {
+                string sql = @"UPDATE supplier Set suppliername=@suppliername,suppliergst=@suppliergst,email=@email,phone=@phone,address=@address WHERE supplierid=@supplierid";
+                connection.Open();
+                await connection.QueryAsync(sql, supplierUpdate);
+                connection.Close();
+                return true;
+            }
         }
 
-        public Task<bool> UpdateSupplier(Supplier supplierUpdate, int supplierid)
+        public async Task<bool> DeleteSupplier(int supplierid)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+            {
+                string sql = @"DELETE FROM supplier WHERE supplierid=@supplierid";
+                connection.Open();
+                await connection.QueryAsync(sql, new { SupplierId = supplierid });
+                connection.Close();
+                return true;
+            }
         }
+
     }
 }
