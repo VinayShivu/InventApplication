@@ -13,5 +13,9 @@
         public const string InvalidSupplierId = "Supplier by this Id not exists";
         public const string InvalidSupplier = "Invalid Supplier";
         public const string NoData = "No Data Found";
+
+        public const string UserExists = "User by this username already exists";
+        public const string InvalidUsername = "Invalid username";
+        public const string InvalidPassword = "Invalid password";
     }
 }

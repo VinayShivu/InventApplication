@@ -17,7 +17,7 @@ namespace InventApplication.Repository.Repositories
         {
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
-                string sql = @"INSERT INTO registertbl (userid,firstname,lastname,username,password) VALUES (@userid,@firstname,@lastname,@username,@password)";
+                string sql = @"INSERT INTO registertbl (firstname,lastname,username,password) VALUES (@firstname,@lastname,@username,@password)";
                 connection.Open();
                 await connection.ExecuteAsync(sql, model);
                 connection.Close();
@@ -31,6 +31,16 @@ namespace InventApplication.Repository.Repositories
                 string sql = @"SELECT * FROM registertbl WHERE username=@username and password=@password ";
                 connection.Open();
                 return connection.Query<UserDto>(sql, new { UserName = username, Password = password }).FirstOrDefault();
+            }
+        }
+
+        public UserDto GetByUserName(string username)
+        {
+            using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+            {
+                string sql = @"SELECT * FROM registertbl WHERE username=@username ";
+                connection.Open();
+                return connection.Query<UserDto>(sql, new { UserName = username }).FirstOrDefault();
             }
         }
     }

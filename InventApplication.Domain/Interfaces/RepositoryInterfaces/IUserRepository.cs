@@ -7,5 +7,7 @@ namespace InventApplication.Domain.Interfaces.RepositoryInterfaces
         public void RegisterUser(UserDto model);
 
         public UserDto GetByUser(string username, string password);
+
+        public UserDto GetByUserName(string username);
     }
 }

@@ -1,5 +1,7 @@
 ﻿using InventApplication.Business.Services;
+using InventApplication.Business.Services.Password;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
+using InventApplication.Domain.Interfaces.Password;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
 using InventApplication.Infrastructure.Common;
 using InventApplication.Infrastructure.Repositories;
@@ -18,6 +20,7 @@ namespace InventApplication.IOC
             services.AddTransient<IDataAccess, DataAccess>();
             services.AddTransient<ISupplierService, SupplierService>();
             services.AddTransient<ISupplierRepository, SupplierRepository>();
+            services.AddTransient<IPasswordService, PasswordService>();
         }
     }
 }
