@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using InventApplication.Business.Services;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
-using InventApplication.Business.Services;
+using InventApplication.Infrastructure.Common;
+using InventApplication.Infrastructure.Repositories;
 using InventApplication.Repository.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace InventApplication.IOC
 {
@@ -12,8 +15,9 @@ namespace InventApplication.IOC
         {
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IEmployeeService, EmployeeService>();
-            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            services.AddTransient<IDataAccess, DataAccess>();
+            services.AddTransient<ISupplierService, SupplierService>();
+            services.AddTransient<ISupplierRepository, SupplierRepository>();
         }
     }
 }

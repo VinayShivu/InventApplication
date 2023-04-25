@@ -1,50 +1,36 @@
 ﻿using Dapper;
 using InventApplication.Domain.DTOs;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
-using Microsoft.Extensions.Configuration;
-using Npgsql;
-using System.Data;
+using Microsoft.Data.SqlClient;
 
 namespace InventApplication.Repository.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public IConfiguration _configuration;
-
-        public UserRepository(IConfiguration configuration)
+        private readonly IDataAccess _dataAccess;
+        public UserRepository(IDataAccess dataAccess)
         {
-            _configuration = configuration;
-
+            _dataAccess = dataAccess;
         }
 
-        public IDbConnection Connection
+        public async void RegisterUser(UserDto model)
         {
-            get
+            using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
-                string query = _configuration["ConnectionStrings:connectionstring"];
-                return new NpgsqlConnection(query);
-
-            }
-
-        }
-        public void RegisterUser(UserDto model)
-        {
-            using (IDbConnection dbConnection = Connection)
-            {
-                string sql = @"INSERT INTO registertbl (userid,firstname,lastname,username,password) VALUES (@userid,@firstname,@lastname,@username,@password )";
-                dbConnection.Open();
-                dbConnection.Execute(sql, model);
-                dbConnection.Close();
+                string sql = @"INSERT INTO registertbl (userid,firstname,lastname,username,password) VALUES (@userid,@firstname,@lastname,@username,@password)";
+                connection.Open();
+                await connection.ExecuteAsync(sql, model);
+                connection.Close();
             }
         }
 
         public UserDto GetByUser(string username, string password)
         {
-            using (IDbConnection dbConnection = Connection)
+            using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
                 string sql = @"SELECT * FROM registertbl WHERE username=@username and password=@password ";
-                dbConnection.Open();
-                return dbConnection.Query<UserDto>(sql, new { UserName = username, Password = password }).FirstOrDefault();
+                connection.Open();
+                return connection.Query<UserDto>(sql, new { UserName = username, Password = password }).FirstOrDefault();
             }
         }
     }

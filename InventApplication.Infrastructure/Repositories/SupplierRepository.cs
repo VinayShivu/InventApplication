@@ -1,18 +1,28 @@
-﻿using InventApplication.Domain.Interfaces.RepositoryInterfaces;
+﻿using Dapper;
+using InventApplication.Domain.Interfaces.RepositoryInterfaces;
 using InventApplication.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace InventApplication.Infrastructure.Repositories
 {
-    internal class SupplierRepository : ISupplierRepository
+    public class SupplierRepository : ISupplierRepository
     {
-        public Task<bool> AddSupplier(Supplier supplier)
+        private readonly IDataAccess _dataAccess;
+        public SupplierRepository(IDataAccess dataAccess)
         {
-            throw new NotImplementedException();
+            _dataAccess = dataAccess;
+        }
+        public async Task<bool> AddSupplier(Supplier supplier)
+        {
+            int result = 0;
+            using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+            {
+                string sql = @"INSERT INTO supplier (suppliername,suppliergst,email,phone,address) VALUES (@suppliername,@suppliergst,@email,@phone,@address)";
+                connection.Open();
+                result = await connection.ExecuteAsync(sql, supplier);
+                connection.Close();
+            }
+            return result > 0;
         }
 
         public Task<bool> DeleteSupplier(int supplierid)
