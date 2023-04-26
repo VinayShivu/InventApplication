@@ -1,4 +1,7 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.API.Controllers;
+using InventApplication.Business.Services;
+using InventApplication.Domain.DTOs;
+using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +12,15 @@ namespace InventApplication.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly ILogger _logger;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
             _userService = userService;
+            _logger = logger;
         }
 
+  
         [HttpPost]
         [Route("api/adduser")]
         public IActionResult RegisterUser([FromBody] UserDto model)
@@ -24,16 +30,26 @@ namespace InventApplication.Controllers
 
         }
 
+        /// <summary>
+        /// Get all login response
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet]
         [Route("api/login")]
-        public IActionResult Login(string username, string password)
+        public async Task<IActionResult> Login(string username, string password)
         {
-            string responseToken = _userService.UserLogin(username, password);
-            if (responseToken == "Invalid Credentials")
+            _logger.LogInformation("Get All login response");
+            TokenResponse tokenResponse = await _userService.UserLogin(username, password);
+            if (tokenResponse != null)
             {
-                return new BadRequestObjectResult(new { message = "Invalid credentials", currentDate = DateTime.Now });
+                return Ok(tokenResponse);
             }
-            return Ok(responseToken);
+            else
+            {
+                return BadRequest(new { message = "Invalid credentials", currentDate = DateTime.Now });
+            }
         }
     }
 }

@@ -8,6 +8,6 @@ namespace InventApplication.Domain.Interfaces.RepositoryInterfaces
 
         public UserDto GetByUser(string username, string password);
 
-        public UserDto GetByUserName(string username);
+        public Task<UserDto> GetByUserName(string username);
     }
 }

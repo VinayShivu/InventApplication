@@ -4,6 +4,7 @@ using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using InventApplication.Domain.Interfaces.Password;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
+using InventApplication.Domain.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -25,7 +26,7 @@ namespace InventApplication.Business.Services
             _passwordService = passwordService;
         }
 
-        private string GenerateToken(UserDto userInfo)
+        private TokenResponse GenerateToken(UserDto userInfo)
         {
             TokenResponse tokenResponse = new TokenResponse();
             var tokenhandler = new JwtSecurityTokenHandler();
@@ -52,15 +53,15 @@ namespace InventApplication.Business.Services
 
             tokenResponse.JWTToken = finaltoken;
 
-            return tokenResponse.JWTToken;
+            return tokenResponse;
         }
 
         public void RegisterUser(UserDto model)
         {
-            if (_userRepository.GetByUserName(model.Username) != null)
-            {
-                throw new RepositoryException(Messages.UserExists);
-            }
+            //if (_userRepository.GetByUserName(model.Username) != null)
+            //{
+            //    throw new RepositoryException(Messages.UserExists);
+            //}
             var user = new UserDto
             {
                 FirstName = model.FirstName,
@@ -71,29 +72,29 @@ namespace InventApplication.Business.Services
             _userRepository.RegisterUser(user);
         }
 
-        public string UserLogin(string userName, string password)
+        public async Task<TokenResponse> UserLogin(string userName, string password)
         {
-            string token = string.Empty;
+            TokenResponse tokenResponse = new TokenResponse();
             if (userName != null && password != null)
             {
-                var user = _userRepository.GetByUserName(userName);
-                if (user != null)
+                var user = await _userRepository.GetByUserName(userName);
+                if (user == null)
                 {
-                    var verifiedpassword = _passwordService.VerifyPassword(password, user.Password);
-                    if (!verifiedpassword)
-                    {
-                        throw new RepositoryException(Messages.InvalidPassword);
-                    }
+                    throw new RepositoryException(Messages.InvalidUsername);
+                }
+                var verifiedpassword = _passwordService.VerifyPassword(password, user.Password);
+                if (!verifiedpassword)
+                {
+                    throw new RepositoryException(Messages.InvalidPassword);
+                }
 
-                    token = GenerateToken(user);
-                }
-                else
-                {
-                    token = "Invalid Credentials";
-                }
+                tokenResponse = GenerateToken(user);
+                tokenResponse.UserName = user.Username;
+                tokenResponse.FirstName = user.FirstName;
+                tokenResponse.LastName = user.LastName;
             }
-            return token;
+            return tokenResponse;
         }
 
-    }
+}
 }

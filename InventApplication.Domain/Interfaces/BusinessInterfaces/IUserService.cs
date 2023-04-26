@@ -5,6 +5,6 @@ namespace InventApplication.Domain.Interfaces.BusinessInterfaces
     public interface IUserService
     {
         public void RegisterUser(UserDto model);
-        public string UserLogin(string userName, string password);
+        public Task<TokenResponse> UserLogin(string userName, string password);
     }
 }

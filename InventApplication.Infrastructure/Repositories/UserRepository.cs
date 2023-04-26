@@ -34,13 +34,15 @@ namespace InventApplication.Repository.Repositories
             }
         }
 
-        public UserDto GetByUserName(string username)
+        public async Task<UserDto> GetByUserName(string username)
         {
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
                 string sql = @"SELECT * FROM registertbl WHERE username=@username ";
                 connection.Open();
-                return connection.Query<UserDto>(sql, new { UserName = username }).FirstOrDefault();
+                var result = await connection.QueryAsync<UserDto>(sql, new { UserName = username });
+                connection.Close();
+                return result.FirstOrDefault();
             }
         }
     }

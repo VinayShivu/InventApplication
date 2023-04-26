@@ -1,3 +1,4 @@
+using InventApplication.API.Middleware;
 using InventApplication.IOC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -46,7 +47,6 @@ builder.Services.AddSwaggerGen(opt =>
     });
 });
 
-services.AddCors();
 services.AddControllers();
 
 services.AddCors(options =>
@@ -81,13 +81,14 @@ UserRegisterIOC.RegisterService(services);
 
 var app = builder.Build();
 
+app.UseMiddleware(typeof(ExceptionHandlingMiddleware));
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
 app.UseCors(CorsPolicy);
 app.UseAuthentication();
