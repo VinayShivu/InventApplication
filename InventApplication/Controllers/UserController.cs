@@ -1,7 +1,4 @@
-﻿using InventApplication.API.Controllers;
-using InventApplication.Business.Services;
-using InventApplication.Domain.DTOs;
-using InventApplication.Domain.Helpers;
+﻿using InventApplication.Domain.DTOs;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +17,7 @@ namespace InventApplication.Controllers
             _logger = logger;
         }
 
-  
+
         [HttpPost]
         [Route("api/adduser")]
         public IActionResult RegisterUser([FromBody] UserDto model)

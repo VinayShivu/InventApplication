@@ -4,7 +4,6 @@ using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using InventApplication.Domain.Interfaces.Password;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
-using InventApplication.Domain.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -58,18 +57,23 @@ namespace InventApplication.Business.Services
 
         public void RegisterUser(UserDto model)
         {
-            //if (_userRepository.GetByUserName(model.Username) != null)
-            //{
-            //    throw new RepositoryException(Messages.UserExists);
-            //}
-            var user = new UserDto
+            var getuser = _userRepository.GetByUserName(model.Username).Result;
+            if (getuser == null)
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Username = model.Username,
-                Password = _passwordService.HashPassword(model.Password)
-            };
-            _userRepository.RegisterUser(user);
+                var user = new UserDto
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Username = model.Username,
+                    Password = _passwordService.HashPassword(model.Password)
+                };
+                _userRepository.RegisterUser(user);
+            }
+            else
+            {
+                throw new RepositoryException(Messages.UserExists);
+            }
+
         }
 
         public async Task<TokenResponse> UserLogin(string userName, string password)
@@ -96,5 +100,5 @@ namespace InventApplication.Business.Services
             return tokenResponse;
         }
 
-}
+    }
 }
