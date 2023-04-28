@@ -1,10 +1,13 @@
 ﻿using InventApplication.Domain.DTOs;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace InventApplication.API.Controllers
 {
+    [Authorize(Roles = "User")]
     [Route("api/")]
     [ApiController]
     public class BuyerController : ControllerBase

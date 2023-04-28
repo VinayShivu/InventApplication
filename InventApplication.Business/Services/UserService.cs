@@ -38,8 +38,8 @@ namespace InventApplication.Business.Services
                         new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                         new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim("UserId", userInfo.userId.ToString()),
                         new Claim(ClaimTypes.Name, userInfo.Username),
+                        new Claim(ClaimTypes.Role,userInfo.Roles)
                     }
                 ),
                 Issuer = _configuration["Jwt:Issuer"],
@@ -65,7 +65,8 @@ namespace InventApplication.Business.Services
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Username = model.Username,
-                    Password = _passwordService.HashPassword(model.Password)
+                    Password = _passwordService.HashPassword(model.Password),
+                    Roles = model.Roles
                 };
                 _userRepository.RegisterUser(user);
             }

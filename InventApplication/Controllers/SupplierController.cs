@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InventApplication.API.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [Route("api/")]
     [ApiController]
     public class SupplierController : ControllerBase

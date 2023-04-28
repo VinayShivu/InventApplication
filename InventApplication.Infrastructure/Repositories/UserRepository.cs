@@ -30,7 +30,7 @@ namespace InventApplication.Repository.Repositories
         {
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
-                string sql = @"INSERT INTO registertbl (firstname,lastname,username,password) VALUES (@firstname,@lastname,@username,@password)";
+                string sql = @"INSERT INTO registertbl (firstname,lastname,username,password,roles) VALUES (@firstname,@lastname,@username,@password,@roles)";
                 connection.Open();
                 await connection.ExecuteAsync(sql, model);
                 connection.Close();
