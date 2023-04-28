@@ -16,7 +16,7 @@ namespace InventApplication.Business.Services
         }
         public async Task<string> AddBuyer(BuyerDto buyer)
         {
-            var getbuyer = _buyerRepository.GetBuyerByNameAsync(buyer.BuyerName);
+            var getbuyer = _buyerRepository.GetBuyerByNameAsync(buyer.BuyerName).Result;
             if (getbuyer == null)
             {
                 var newBuyer = new Buyer
