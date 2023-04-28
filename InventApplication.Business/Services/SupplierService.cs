@@ -29,20 +29,23 @@ namespace InventApplication.Business.Services
             return retVal ? newSupplier.SupplierName : null;
         }
 
-        public async Task<IEnumerable<SupplierDto>> GetAllSupplierAsync()
+        public async Task<IEnumerable<Supplier>> GetAllSupplierAsync()
         {
             var result = await _supplierRepository.GetAllSupplierAsync();
-
+            if (result == null)
+            {
+                throw new RepositoryException(Messages.NoData);
+            }
             return result.Select(supplier => supplier)
-          .Select(supplier => new SupplierDto
-          {
-              SupplierId = supplier.SupplierId,
-              SupplierName = supplier.SupplierName,
-              SupplierGST = supplier.SupplierGST,
-              Email = supplier.Email,
-              Phone = supplier.Phone,
-              Address = supplier.Address
-          });
+             .Select(supplier => new Supplier
+             {
+                 SupplierId = supplier.SupplierId,
+                 SupplierName = supplier.SupplierName,
+                 SupplierGST = supplier.SupplierGST,
+                 Email = supplier.Email,
+                 Phone = supplier.Phone,
+                 Address = supplier.Address
+             });
         }
 
         public async Task<Supplier> GetSupplierByIdAsync(int supplierid)

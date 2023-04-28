@@ -12,6 +12,19 @@ namespace InventApplication.Repository.Repositories
         {
             _dataAccess = dataAccess;
         }
+        private bool UserExists()
+        {
+            using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+            {
+                connection.Open();
+                var count = connection.ExecuteScalar<int>("SELECT COUNT(*) FROM registertbl");
+                if (count == 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
 
         public async void RegisterUser(UserDto model)
         {
@@ -41,7 +54,7 @@ namespace InventApplication.Repository.Repositories
 
         public async Task<UserDto> GetByUserName(string username)
         {
-            if (UserExists(username))
+            if (UserExists())
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
@@ -55,20 +68,6 @@ namespace InventApplication.Repository.Repositories
             else
             {
                 return null;
-            }
-        }
-
-        private bool UserExists(string username)
-        {
-            using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
-            {
-                connection.Open();
-                var count = connection.ExecuteScalar<int>("SELECT COUNT(*) FROM registertbl");
-                if (count == 0)
-                {
-                    return false;
-                }
-                return true;
             }
         }
     }

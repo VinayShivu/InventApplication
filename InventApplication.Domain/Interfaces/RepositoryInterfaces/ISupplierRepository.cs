@@ -10,6 +10,5 @@ namespace InventApplication.Domain.Interfaces.RepositoryInterfaces
         public Task<bool> UpdateSupplier(Supplier supplierUpdate, int supplierid);
         public Task<bool> DeleteSupplier(int supplierid);
 
-
     }
 }

@@ -2,6 +2,7 @@
 {
     public static class Messages
     {
+        #region Supplier
         public const string SupplierRegisterSuccess = "Supplier added successfully";
         public const string SupplierUpdateSuccess = "Supplier update successfully";
         public const string SupplierDeleteSuccess = "Supplier delete successfully";
@@ -12,10 +13,26 @@
         public const string SupplierNotExists = "Supplier does not exists";
         public const string InvalidSupplierId = "Supplier by this Id not exists";
         public const string InvalidSupplier = "Invalid Supplier";
-        public const string NoData = "No Data Found";
+        #endregion
 
+        #region Buyer
+        public const string BuyerRegisterSuccess = "Buyer added successfully";
+        public const string BuyerUpdateSuccess = "Buyer update successfully";
+        public const string BuyerDeleteSuccess = "Buyer delete successfully";
+        public const string BuyerRegisterError = "Error in adding Buyer";
+        public const string BuyerDeleteError = "Error in deleting Buyer";
+        public const string BuyerUpdateError = "Error in update Buyer";
+        public const string BuyerExists = "Buyer by this name already exists";
+        public const string BuyerNotExists = "Buyer does not exists";
+        public const string InvalidBuyerId = "Buyer by this Id not exists";
+        public const string InvalidBuyer = "Invalid Buyer";
+        #endregion
+
+        #region User
+        public const string NoData = "No Data Found";
         public const string UserExists = "User by this username already exists";
         public const string InvalidUsername = "Invalid username";
         public const string InvalidPassword = "Invalid password";
+        #endregion
     }
 }
