@@ -1,13 +1,11 @@
 ﻿using InventApplication.Domain.DTOs;
+using InventApplication.Domain.Models;
 
 namespace InventApplication.Domain.Interfaces.RepositoryInterfaces
 {
     public interface IUserRepository
     {
         public void RegisterUser(UserDto model);
-
-        public UserDto GetByUser(string username, string password);
-
-        public Task<UserDto> GetByUserName(string username);
+        public Task<User> GetByUserName(string username);
     }
 }

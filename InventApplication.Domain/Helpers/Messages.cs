@@ -34,5 +34,25 @@
         public const string InvalidUsername = "Invalid username";
         public const string InvalidPassword = "Invalid password";
         #endregion
+
+        #region Items
+        public const string ItemsRegisterSuccess = "Items added successfully";
+        public const string ItemsUpdateSuccess = "Items update successfully";
+        public const string ItemsDeleteSuccess = "Items delete successfully";
+        public const string ItemsRegisterError = "Error in adding Items";
+        public const string ItemsDeleteError = "Error in deleting Items";
+        public const string ItemsUpdateError = "Error in update Items";
+        public const string ItemsExists = "Items by this name already exists";
+        public const string ItemsNotExists = "Items does not exists";
+        public const string InvalidItemsId = "Items by this Id not exists";
+        public const string InvalidItems = "Invalid Items";
+        #endregion
+
+        #region Token
+        public const string InvalidToken = "Invalid refresh token";
+        public const string InvalidUserClaimName = "Invalid User Claim Name";
+        public const string TokenExpired = "Refresh token expired";
+        public const string UserNotAuthorized = "User not Authorized";
+        #endregion
     }
 }

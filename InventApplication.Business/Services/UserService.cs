@@ -2,57 +2,27 @@
 using InventApplication.Domain.Exceptions;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
+using InventApplication.Domain.Interfaces.JWT;
 using InventApplication.Domain.Interfaces.Password;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using InventApplication.Domain.Models.JWT;
 
 namespace InventApplication.Business.Services
 {
     public class UserService : IUserService
     {
-        public IConfiguration _configuration;
         private readonly IUserRepository _userRepository;
         private readonly IPasswordService _passwordService;
+        private readonly IJwtService _jwtService;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
 
-        public UserService(IConfiguration configuration, IUserRepository userRepository, IPasswordService passwordService)
+
+        public UserService(IUserRepository userRepository, IPasswordService passwordService, IJwtService jwtService, IRefreshTokenRepository refreshTokenRepository)
         {
-            _configuration = configuration;
             _userRepository = userRepository;
             _passwordService = passwordService;
-        }
-
-        private TokenResponse GenerateToken(UserDto userInfo)
-        {
-            TokenResponse tokenResponse = new TokenResponse();
-            var tokenhandler = new JwtSecurityTokenHandler();
-            var tokenkey = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(
-                    new Claim[]
-                    {
-                        new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
-                        new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim(ClaimTypes.Name, userInfo.Username),
-                        new Claim(ClaimTypes.Role,userInfo.Roles)
-                    }
-                ),
-                Issuer = _configuration["Jwt:Issuer"],
-                Audience = _configuration["Jwt:Audience"],
-                Expires = DateTime.Now.AddMinutes(20),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenkey), SecurityAlgorithms.HmacSha256)
-            };
-            var token = tokenhandler.CreateToken(tokenDescriptor);
-            string finaltoken = tokenhandler.WriteToken(token);
-
-            tokenResponse.JWTToken = finaltoken;
-
-            return tokenResponse;
+            _jwtService = jwtService;
+            _refreshTokenRepository = refreshTokenRepository;
         }
 
         public void RegisterUser(UserDto model)
@@ -74,12 +44,11 @@ namespace InventApplication.Business.Services
             {
                 throw new RepositoryException(Messages.UserExists);
             }
-
         }
 
-        public async Task<TokenResponse> UserLogin(string userName, string password)
+        public async Task<JwtToken> UserLogin(string userName, string password)
         {
-            TokenResponse tokenResponse = new TokenResponse();
+            JwtToken jwtToken = new JwtToken();
             if (userName != null && password != null)
             {
                 var user = await _userRepository.GetByUserName(userName);
@@ -93,13 +62,11 @@ namespace InventApplication.Business.Services
                     throw new RepositoryException(Messages.InvalidPassword);
                 }
 
-                tokenResponse = GenerateToken(user);
-                tokenResponse.UserName = user.Username;
-                tokenResponse.FirstName = user.FirstName;
-                tokenResponse.LastName = user.LastName;
-            }
-            return tokenResponse;
-        }
+                jwtToken = _jwtService.GenerateJwtToken(user);
 
+                await _refreshTokenRepository.UpdateRefreshTokenAsync(jwtToken, user.UserId);
+            }
+            return jwtToken;
+        }
     }
 }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventApplication.API", "InventApplication\InventApplication.API.csproj", "{6EF1E737-8B0C-48D1-97B5-B06ADC06DC46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventApplication.API", "InventApplication\InventApplication.API.csproj", "{6EF1E737-8B0C-48D1-97B5-B06ADC06DC46}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{D73C74D0-6DAF-435A-999D-D17E5444EB26}"
 EndProject
@@ -11,23 +11,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InventManagement", "InventM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{06E07F08-AE95-4C69-B5D1-4BF051DE7A93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventApplication.Business", "InventApplication.Business\InventApplication.Business.csproj", "{CB9629BE-B21F-4C7F-A681-11A9F9C71936}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventApplication.Business", "InventApplication.Business\InventApplication.Business.csproj", "{CB9629BE-B21F-4C7F-A681-11A9F9C71936}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{300F91BF-B8F5-44DA-9277-79B34852A021}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventApplication.Infrastructure", "InventApplication.Infrastructure\InventApplication.Infrastructure.csproj", "{874D449C-BF2A-4074-9459-E8088A86EC16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventApplication.Infrastructure", "InventApplication.Infrastructure\InventApplication.Infrastructure.csproj", "{874D449C-BF2A-4074-9459-E8088A86EC16}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{30EDBCF6-F5B6-4C5C-87D4-3F703B55AA3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventApplication.Domain", "InventApplication.Domain\InventApplication.Domain.csproj", "{862C94FB-B7C2-458E-BFAC-EA8FB7499229}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventApplication.Domain", "InventApplication.Domain\InventApplication.Domain.csproj", "{862C94FB-B7C2-458E-BFAC-EA8FB7499229}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IOC", "IOC", "{8D125A72-41FE-497B-ADA5-80CCBAE88D99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventApplication.IOC", "InventApplication.IOC\InventApplication.IOC.csproj", "{3F15FD8D-E490-4821-AB95-F680951F3B9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventApplication.IOC", "InventApplication.IOC\InventApplication.IOC.csproj", "{3F15FD8D-E490-4821-AB95-F680951F3B9E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4745A297-0DAD-4071-9F62-8FE5D26FF990}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventApplication.Tests", "InventApplication.Tests\InventApplication.Tests.csproj", "{E4905392-CF18-4402-A007-A4A609A43E7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventApplication.Tests", "InventApplication.Tests\InventApplication.Tests.csproj", "{E4905392-CF18-4402-A007-A4A609A43E7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

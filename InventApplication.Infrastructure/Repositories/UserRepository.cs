@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using InventApplication.Domain.DTOs;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
+using InventApplication.Domain.Models;
 using Microsoft.Data.SqlClient;
 
 namespace InventApplication.Repository.Repositories
@@ -36,23 +37,7 @@ namespace InventApplication.Repository.Repositories
                 connection.Close();
             }
         }
-
-        public UserDto GetByUser(string username, string password)
-        {
-            using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
-            {
-                string sql = @"SELECT * FROM registertbl WHERE username=@username and password=@password ";
-                connection.Open();
-                var count = connection.ExecuteScalar<int>("SELECT COUNT(*) FROM registertbl");
-                if (count == 0)
-                {
-                    return null;
-                }
-                return connection.Query<UserDto>(sql, new { UserName = username, Password = password }).FirstOrDefault();
-            }
-        }
-
-        public async Task<UserDto> GetByUserName(string username)
+        public async Task<User> GetByUserName(string username)
         {
             if (UserExists())
             {
@@ -60,7 +45,7 @@ namespace InventApplication.Repository.Repositories
                 {
                     string sql = @"SELECT * FROM registertbl WHERE username=@username ";
                     connection.Open();
-                    var result = await connection.QueryAsync<UserDto>(sql, new { UserName = username });
+                    var result = await connection.QueryAsync<User>(sql, new { UserName = username });
                     connection.Close();
                     return result.FirstOrDefault();
                 }

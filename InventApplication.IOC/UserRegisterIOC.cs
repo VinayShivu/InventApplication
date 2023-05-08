@@ -1,6 +1,7 @@
 ﻿using InventApplication.Business.Services;
 using InventApplication.Business.Services.Password;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
+using InventApplication.Domain.Interfaces.JWT;
 using InventApplication.Domain.Interfaces.Password;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
 using InventApplication.Infrastructure.Common;
@@ -22,7 +23,12 @@ namespace InventApplication.IOC
             services.AddTransient<ISupplierRepository, SupplierRepository>();
             services.AddTransient<IBuyerService, BuyerService>();
             services.AddTransient<IBuyerRepository, BuyerRepository>();
+            services.AddTransient<IItemsService, ItemsService>();
+            services.AddTransient<IItemsRepository, ItemsRepository>();
             services.AddTransient<IPasswordService, PasswordService>();
+            services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
+
+            services.AddScoped<IJwtService, JwtService>();
         }
     }
 }
