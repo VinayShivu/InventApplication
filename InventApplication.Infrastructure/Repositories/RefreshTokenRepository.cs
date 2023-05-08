@@ -35,7 +35,7 @@ namespace InventApplication.Infrastructure.Repositories
                 string sql = @"SELECT refreshtoken,refreshtokencreated, refreshtokenexpires FROM registertbl WHERE refreshtoken=@refreshtokenreq";
                 var param = new { refreshtokenreq = refreshtoken };
                 connection.Open();
-                var result = await connection.QueryFirstOrDefault(sql, param);
+                var result = await connection.QueryFirstOrDefaultAsync(sql, param);
                 if (result == null)
                 {
                     throw new RepositoryException(Messages.InvalidToken);
