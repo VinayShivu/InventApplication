@@ -8,7 +8,7 @@ namespace InventApplication.Domain.Models
         [Required]
         public int SupplierId { get; set; }
 
-        [Required(ErrorMessage = "Please enter a Supplier Name.")]
+        [Required(ErrorMessage = "Please enter a Company Name.")]
         public string? SupplierName { get; set; }
 
         [Required(ErrorMessage = "Please enter a Supplier GST.")]
@@ -21,5 +21,7 @@ namespace InventApplication.Domain.Models
 
         [Required(ErrorMessage = "Please enter a Supplier Address.")]
         public string? Address { get; set; }
+        public string? PrimaryContact { get; set; }
+        public string? ContactPersons { get; set; }
     }
 }

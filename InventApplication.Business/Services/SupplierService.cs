@@ -22,7 +22,9 @@ namespace InventApplication.Business.Services
                 SupplierGST = supplier.SupplierGST,
                 Email = supplier.Email,
                 Phone = supplier.Phone,
-                Address = supplier.Address
+                Address = supplier.Address,
+                PrimaryContact = supplier.PrimaryContact,
+                ContactPersons = supplier.ContactPersons
             };
             var retVal = await _supplierRepository.AddSupplier(newSupplier);
 
@@ -44,7 +46,9 @@ namespace InventApplication.Business.Services
                  SupplierGST = supplier.SupplierGST,
                  Email = supplier.Email,
                  Phone = supplier.Phone,
-                 Address = supplier.Address
+                 Address = supplier.Address,
+                 PrimaryContact = supplier.PrimaryContact,
+                 ContactPersons = supplier.ContactPersons
              });
         }
 
@@ -72,6 +76,8 @@ namespace InventApplication.Business.Services
                 supplier.Email = supplierRequestUpdateDto.Email;
                 supplier.Phone = supplierRequestUpdateDto.Phone;
                 supplier.Address = supplierRequestUpdateDto.Address;
+                supplier.PrimaryContact = supplierRequestUpdateDto.PrimaryContact;
+                supplier.ContactPersons = supplierRequestUpdateDto.ContactPersons;
                 var retval = await _supplierRepository.UpdateSupplier(supplier, supplierid);
                 return retval;
             }

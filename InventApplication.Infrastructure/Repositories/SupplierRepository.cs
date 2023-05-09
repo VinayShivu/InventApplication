@@ -30,7 +30,7 @@ namespace InventApplication.Infrastructure.Repositories
             int result = 0;
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
-                string sql = @"INSERT INTO supplier (suppliername,suppliergst,email,phone,address) VALUES (@suppliername,@suppliergst,@email,@phone,@address)";
+                string sql = @"INSERT INTO supplier (suppliername,suppliergst,email,phone,address,primarycontact,contactpersons) VALUES (@suppliername,@suppliergst,@email,@phone,@address,@primarycontact,@contactpersons)";
                 connection.Open();
                 result = await connection.ExecuteAsync(sql, supplier);
                 connection.Close();
@@ -83,7 +83,7 @@ namespace InventApplication.Infrastructure.Repositories
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
-                    string sql = @"UPDATE supplier Set suppliername=@suppliername,suppliergst=@suppliergst,email=@email,phone=@phone,address=@address WHERE supplierid=@supplierid";
+                    string sql = @"UPDATE supplier Set suppliername=@suppliername,suppliergst=@suppliergst,email=@email,phone=@phone,address=@address,primarycontact=@primarycontact,contactpersons=@contactpersons WHERE supplierid=@supplierid";
                     connection.Open();
                     await connection.QueryAsync(sql, supplierUpdate);
                     connection.Close();
