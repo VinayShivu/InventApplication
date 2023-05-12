@@ -5,19 +5,19 @@ using Microsoft.Data.SqlClient;
 
 namespace InventApplication.Infrastructure.Repositories
 {
-    public class SupplierRepository : ISupplierRepository
+    public class VendorRepository : IVendorRepository
     {
         private readonly IDataAccess _dataAccess;
-        public SupplierRepository(IDataAccess dataAccess)
+        public VendorRepository(IDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
-        private bool SupplierExists()
+        private bool VendorExists()
         {
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
                 connection.Open();
-                var count = connection.ExecuteScalar<int>("SELECT COUNT(*) FROM supplier");
+                var count = connection.ExecuteScalar<int>("SELECT COUNT(*) FROM vendor");
                 if (count == 0)
                 {
                     return false;
@@ -25,28 +25,28 @@ namespace InventApplication.Infrastructure.Repositories
                 return true;
             }
         }
-        public async Task<bool> AddSupplier(Supplier supplier)
+        public async Task<bool> AddVendor(Vendor vendor)
         {
             int result = 0;
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
-                string sql = @"INSERT INTO supplier (suppliername,suppliergst,email,phone,address,primarycontact,contactpersons) VALUES (@suppliername,@suppliergst,@email,@phone,@address,@primarycontact,@contactpersons)";
+                string sql = @"INSERT INTO vendor (vendorname,vendorgst,email,phone,address,primarycontactname,contactpersons) VALUES (@vendorname,@vendorgst,@email,@phone,@address,@primarycontactname,@contactpersons)";
                 connection.Open();
-                result = await connection.ExecuteAsync(sql, supplier);
+                result = await connection.ExecuteAsync(sql, vendor);
                 connection.Close();
             }
             return result > 0;
         }
 
-        public async Task<IEnumerable<Supplier>> GetAllSupplierAsync()
+        public async Task<IEnumerable<Vendor>> GetAllVendorAsync()
         {
-            if (SupplierExists())
+            if (VendorExists())
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
-                    string sql = @"SELECT * FROM supplier";
+                    string sql = @"SELECT * FROM vendor";
                     connection.Open();
-                    var result = await connection.QueryAsync<Supplier>(sql);
+                    var result = await connection.QueryAsync<Vendor>(sql);
                     connection.Close();
                     return result;
                 }
@@ -58,15 +58,15 @@ namespace InventApplication.Infrastructure.Repositories
 
         }
 
-        public async Task<Supplier> GetSupplierByIdAsync(int supplierid)
+        public async Task<Vendor> GetVendorByIdAsync(int vendorid)
         {
-            if (SupplierExists())
+            if (VendorExists())
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
-                    string sql = @"SELECT * FROM supplier WHERE supplierid=@supplierid";
+                    string sql = @"SELECT * FROM vendor WHERE vendorid=@vendorid";
                     connection.Open();
-                    var result = await connection.QueryAsync<Supplier>(sql, new { SupplierId = supplierid });
+                    var result = await connection.QueryAsync<Vendor>(sql, new { VendorId = vendorid });
                     connection.Close();
                     return result.FirstOrDefault();
                 }
@@ -77,15 +77,15 @@ namespace InventApplication.Infrastructure.Repositories
             }
         }
 
-        public async Task<bool> UpdateSupplier(Supplier supplierUpdate, int supplierid)
+        public async Task<bool> UpdateVendor(Vendor vendorUpdate, int vendorid)
         {
-            if (SupplierExists())
+            if (VendorExists())
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
-                    string sql = @"UPDATE supplier Set suppliername=@suppliername,suppliergst=@suppliergst,email=@email,phone=@phone,address=@address,primarycontact=@primarycontact,contactpersons=@contactpersons WHERE supplierid=@supplierid";
+                    string sql = @"UPDATE vendor Set vendorname=@vendorname,vendorgst=@vendorgst,email=@email,phone=@phone,address=@address,primarycontactname=@primarycontactname,contactpersons=@contactpersons WHERE vendorid=@vendorid";
                     connection.Open();
-                    await connection.QueryAsync(sql, supplierUpdate);
+                    await connection.QueryAsync(sql, vendorUpdate);
                     connection.Close();
                     return true;
                 }
@@ -96,15 +96,15 @@ namespace InventApplication.Infrastructure.Repositories
             }
         }
 
-        public async Task<bool> DeleteSupplier(int supplierid)
+        public async Task<bool> DeleteVendor(int vendorid)
         {
-            if (SupplierExists())
+            if (VendorExists())
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
-                    string sql = @"DELETE FROM supplier WHERE supplierid=@supplierid";
+                    string sql = @"DELETE FROM vendor WHERE vendorid=@vendorid";
                     connection.Open();
-                    await connection.QueryAsync(sql, new { SupplierId = supplierid });
+                    await connection.QueryAsync(sql, new { VendorId = vendorid });
                     connection.Close();
                     return true;
                 }
