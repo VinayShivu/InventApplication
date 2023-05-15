@@ -1,4 +1,5 @@
 ﻿using InventApplication.Domain.DTOs;
+using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using InventApplication.Domain.Interfaces.JWT;
 using InventApplication.Domain.Models.JWT;
@@ -72,6 +73,54 @@ namespace InventApplication.Controllers
             else
             {
                 return BadRequest(new { message = "Invalid credentials", currentDate = DateTime.Now });
+            }
+        }
+
+        /// <summary>
+        /// Send Link to Reset Password
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPost]
+        [Route("api/forgotpassword")]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordRequestDto request)
+        {
+            _logger.LogInformation("Send Link to Reset Password");
+            var Response = await _userService.ForgotPassword(request);
+            if (Response)
+            {
+                _logger.LogInformation("{success}: Sent Reset Password Link to Email : { email }", Messages.EmailSent, request.Email);
+                return Ok(new { message = Messages.EmailSent, currentDate = DateTime.Now });
+            }
+            else
+            {
+                _logger.LogInformation("{error} : Email: {email}", Messages.InvalidEmail, request.Email);
+                return BadRequest(new { message = Messages.InvalidEmail, currentDate = DateTime.Now });
+            }
+        }
+
+        /// <summary>
+        /// Reset Password
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPost]
+        [Route("api/resetpassword")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordRequestDto request)
+        {
+            _logger.LogInformation("Reset Password");
+            var Response = await _userService.ResetPassword(request);
+            if (Response)
+            {
+                _logger.LogInformation("{success}", Messages.UserResetPasswordUpdateSuccess);
+                return Ok(new { message = Messages.UserResetPasswordUpdateSuccess, currentDate = DateTime.Now });
+            }
+            else
+            {
+                _logger.LogInformation("{error}", Messages.UserResetPasswordUpdateError);
+                return BadRequest(new { message = Messages.UserResetPasswordUpdateError, currentDate = DateTime.Now });
             }
         }
     }

@@ -27,8 +27,10 @@ namespace InventApplication.IOC
             services.AddTransient<IItemsRepository, ItemsRepository>();
             services.AddTransient<IPasswordService, PasswordService>();
             services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
-
+            services.AddTransient<IEmailService, EmailService>();
             services.AddScoped<IJwtService, JwtService>();
+   
+
         }
     }
 }

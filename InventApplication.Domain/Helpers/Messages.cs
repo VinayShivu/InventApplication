@@ -38,8 +38,15 @@
         public const string UserExists = "User by this username already exists";
         public const string InvalidUsername = "Invalid username";
         public const string InvalidPassword = "Invalid password";
+        public const string InvalidEmail= "Invalid Email";
         public const string UserNameRequired = "User Name is required";
         public const string UserRoleRequired = "User Role is required";
+        public const string UserNotFound = "User Not Found";  
+        public const string EmailSent = "Sent Reset Password Link through Email";
+        public const string UserResetPasswordUpdateSuccess = "User Reset Password updated successfully";
+        public const string UserResetPasswordUpdateError = "Error in resetting user password";
+        public const string FailedPasswordResetEmail = "Failed to send password reset email";
+
         #endregion
 
         #region Items
@@ -59,6 +66,7 @@
         public const string InvalidToken = "Invalid refresh token";
         public const string InvalidUserClaimName = "Invalid User Claim Name";
         public const string TokenExpired = "Refresh token expired";
+        public const string PasswordResetTokenExpired = "Invalid or Password Reset Token expired";
         public const string UserNotAuthorized = "User not Authorized";
         #endregion
 
@@ -73,8 +81,9 @@
         public const string PasswordRequired = "Password is required";
         public const string CurrentPasswordRequired = "Current password is required";
         public const string NewPasswordRequired = " New password is required";
-        public const string ResetTokenRequired = "Reset Token is required";
-        public const string InvalidEmail = "Invalid email address format";
+        public const string AccessTokenRequired = "Access Token is required";
+        public const string RefreshTokenRequired = "Refresh Token is required";
+        public const string InvalidEmailFormat = "Invalid email address format";
         public const string InvalidPhoneNumber = "Invalid Phone Number";
         #endregion
     }
