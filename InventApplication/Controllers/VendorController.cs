@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InventApplication.API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+   // [Authorize(Roles = "Admin")]
     [Route("api/")]
     [ApiController]
     public class VendorController : ControllerBase
@@ -87,6 +87,29 @@ namespace InventApplication.API.Controllers
                 return BadRequest(new { message = Messages.NoData, currentDate = DateTime.Now });
             }
         }
+
+        /// <summary>
+        /// Get Vendor by name
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpGet]
+        [Route("vendorcompanyname/{companyname}")]
+        public async Task<IActionResult> GetVendorByName(string companyname)
+        {
+            _logger.LogInformation("Get Vendor by Name : {companyname}", companyname);
+            var vendor = await _vendorService.GetVendorByNameAsync(companyname);
+            if (vendor != null)
+            {
+                return Ok(vendor);
+            }
+            else
+            {
+                return BadRequest(new { message = Messages.NoData, currentDate = DateTime.Now });
+            }
+        }
+
 
         /// <summary>
         /// Update Vendor

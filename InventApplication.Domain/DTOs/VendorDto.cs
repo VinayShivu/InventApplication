@@ -22,5 +22,6 @@ namespace InventApplication.Domain.DTOs
         [Required(ErrorMessage = Messages.VendorPrimaryContactNameRequired)]
         public string? PrimaryContactName { get; set; }
         public string? ContactPersons { get; set; } = string.Empty;
+        public int Payables { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace InventApplication.Infrastructure.Repositories
             int result = 0;
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
-                string sql = @"INSERT INTO vendor (vendorname,vendorgst,email,phone,address,primarycontactname,contactpersons) VALUES (@vendorname,@vendorgst,@email,@phone,@address,@primarycontactname,@contactpersons)";
+                string sql = @"INSERT INTO vendor (companyname,vendorgst,email,phone,address,primarycontactname,contactpersons,payables) VALUES (@companyname,@vendorgst,@email,@phone,@address,@primarycontactname,@contactpersons,@payables)";
                 connection.Open();
                 result = await connection.ExecuteAsync(sql, vendor);
                 connection.Close();
@@ -83,7 +83,7 @@ namespace InventApplication.Infrastructure.Repositories
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
-                    string sql = @"UPDATE vendor Set vendorname=@vendorname,vendorgst=@vendorgst,email=@email,phone=@phone,address=@address,primarycontactname=@primarycontactname,contactpersons=@contactpersons WHERE vendorid=@vendorid";
+                    string sql = @"UPDATE vendor Set companyname=@companyname,vendorgst=@vendorgst,email=@email,phone=@phone,address=@address,primarycontactname=@primarycontactname,contactpersons=@contactpersons WHERE vendorid=@vendorid";
                     connection.Open();
                     await connection.QueryAsync(sql, vendorUpdate);
                     connection.Close();
@@ -112,6 +112,25 @@ namespace InventApplication.Infrastructure.Repositories
             else
             {
                 return false;
+            }
+        }
+
+        public async Task<Vendor> GetVendorByNameAsync(string companyname)
+        {
+            if (VendorExists())
+            {
+                using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+                {
+                    string sql = @"SELECT * FROM vendor WHERE companyname=@companyname";
+                    connection.Open();
+                    var result = await connection.QueryAsync<Vendor>(sql, new { CompanyName = companyname });
+                    connection.Close();
+                    return result.FirstOrDefault();
+                }
+            }
+            else
+            {
+                return null;
             }
         }
 

@@ -13,5 +13,6 @@ namespace InventApplication.Domain.Models
         public string Address { get; set; }
         public string PrimaryContactName { get; set; }
         public string ContactPersons { get; set; }
+        public int Payables { get; set; }
     }
 }

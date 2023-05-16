@@ -12,7 +12,7 @@
         public const string VendorExists = "Vendor by this name already exists";
         public const string VendorNotExists = "Vendor does not exists";
         public const string InvalidVendorId = "Vendor by this Id not exists";
-        public const string InvalidVendor = "Invalid Vendor";
+        public const string InvalidCompanyName = "Invalid Company Name";
         public const string CompanyNameRequired = "Company Name Required";
         public const string VendorGSTRequired = "Vendor GST% Required";
         public const string VendorPhoneRequired = "Vendor Phone Number Required";
