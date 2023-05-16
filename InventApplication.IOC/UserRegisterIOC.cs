@@ -29,7 +29,7 @@ namespace InventApplication.IOC
             services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddScoped<IJwtService, JwtService>();
-   
+
 
         }
     }

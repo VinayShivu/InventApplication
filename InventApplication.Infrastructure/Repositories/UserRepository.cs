@@ -2,7 +2,6 @@
 using InventApplication.Domain.DTOs;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
 using InventApplication.Domain.Models;
-using InventApplication.Domain.Models.JWT;
 using Microsoft.Data.SqlClient;
 
 namespace InventApplication.Repository.Repositories

@@ -1,12 +1,5 @@
-﻿using InventApplication.Domain.Interfaces.BusinessInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using InventApplication.Domain.Exceptions;
+﻿using InventApplication.Domain.Exceptions;
+using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using Microsoft.Extensions.Configuration;
 
 namespace InventApplication.Business.Services
@@ -20,7 +13,7 @@ namespace InventApplication.Business.Services
         public EmailService(IConfiguration configuration)
         {
             _configuration = configuration;
-        }   
+        }
         public async Task<bool> SendEmail(string email, string subject, string body)
         {
             try

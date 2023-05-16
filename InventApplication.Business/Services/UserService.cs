@@ -5,11 +5,8 @@ using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using InventApplication.Domain.Interfaces.JWT;
 using InventApplication.Domain.Interfaces.Password;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
-using InventApplication.Domain.Models;
 using InventApplication.Domain.Models.JWT;
 using Microsoft.Extensions.Configuration;
-using System.Net;
-using System.Reflection;
 using System.Security.Cryptography;
 
 namespace InventApplication.Business.Services
@@ -108,7 +105,7 @@ namespace InventApplication.Business.Services
             var user = await _userRepository.GetUserByEmail(request.Email) ?? throw new RepositoryException(Messages.InvalidEmail);
             var token = GeneratePasswordResetToken().ToString();
             var passwordresettokenexpires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["JwtSettings:PasswordResetTokenExpirationMinutes"]));
-            await _userRepository.UpdatePasswordResetToken( token, user.UserId, passwordresettokenexpires);
+            await _userRepository.UpdatePasswordResetToken(token, user.UserId, passwordresettokenexpires);
 
             var emailSent = await SendPasswordResetEmail(user.Email, token);
             if (!emailSent)

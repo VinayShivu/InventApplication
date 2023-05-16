@@ -38,10 +38,10 @@
         public const string UserExists = "User by this username already exists";
         public const string InvalidUsername = "Invalid username";
         public const string InvalidPassword = "Invalid password";
-        public const string InvalidEmail= "Invalid Email";
+        public const string InvalidEmail = "Invalid Email";
         public const string UserNameRequired = "User Name is required";
         public const string UserRoleRequired = "User Role is required";
-        public const string UserNotFound = "User Not Found";  
+        public const string UserNotFound = "User Not Found";
         public const string EmailSent = "Sent Reset Password Link through Email";
         public const string UserResetPasswordUpdateSuccess = "User Reset Password updated successfully";
         public const string UserResetPasswordUpdateError = "Error in resetting user password";
