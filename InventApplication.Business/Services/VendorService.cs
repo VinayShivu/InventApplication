@@ -27,7 +27,7 @@ namespace InventApplication.Business.Services
                     Phone = vendor.Phone,
                     Address = vendor.Address,
                     PrimaryContactName = vendor.PrimaryContactName,
-                    ContactPersons = vendor.ContactPersons
+                    ContactPersons = vendor.ContactPersons,
                 };
                 var retVal = await _vendorRepository.AddVendor(newVendor);
 
@@ -56,7 +56,8 @@ namespace InventApplication.Business.Services
                  Phone = vendor.Phone,
                  Address = vendor.Address,
                  PrimaryContactName = vendor.PrimaryContactName,
-                 ContactPersons = vendor.ContactPersons
+                 ContactPersons = vendor.ContactPersons,
+                 Payables = vendor.Payables
              });
         }
 
