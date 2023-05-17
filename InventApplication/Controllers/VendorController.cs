@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InventApplication.API.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Route("api/")]
     [ApiController]
     public class VendorController : ControllerBase
@@ -26,6 +25,7 @@ namespace InventApplication.API.Controllers
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Policy = "Admin")]
         [HttpPost]
         [Route("vendor")]
         public async Task<IActionResult> Addvendor(VendorDto vendorRequestDto)
@@ -35,7 +35,7 @@ namespace InventApplication.API.Controllers
             if (vendorAdded != null)
             {
                 _logger.LogInformation("{success} : Vendor :{vendorname}", Messages.VendorRegisterSuccess, vendorRequestDto.CompanyName);
-                return Ok(new { message = Messages.VendorRegisterSuccess, vendorename = vendorAdded, currentDate = DateTime.Now });
+                return Ok(new { message = Messages.VendorRegisterSuccess, vendorname = vendorAdded, currentDate = DateTime.Now });
             }
             else
             {
@@ -50,6 +50,7 @@ namespace InventApplication.API.Controllers
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Policy = "AdminOrUser")]
         [HttpGet]
         [Route("vendor")]
         public async Task<IActionResult> GetAllVendor()
@@ -72,6 +73,7 @@ namespace InventApplication.API.Controllers
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Policy = "AdminOrUser")]
         [HttpGet]
         [Route("vendor/{vendorid}")]
         public async Task<IActionResult> GetVendorById(int vendorid)
@@ -94,11 +96,12 @@ namespace InventApplication.API.Controllers
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Policy = "AdminOrUser")]
         [HttpGet]
         [Route("vendorcompanyname/{companyname}")]
         public async Task<IActionResult> GetVendorByName(string companyname)
         {
-            _logger.LogInformation("Get Vendor by Name : {companyname}", companyname);
+            _logger.LogInformation("Get Vendor by Company Name : {companyname}", companyname);
             var vendor = await _vendorService.GetVendorByNameAsync(companyname);
             if (vendor != null)
             {
@@ -118,6 +121,7 @@ namespace InventApplication.API.Controllers
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Policy = "Admin")]
         [HttpPut]
         [Route("vendor/{vendorid}")]
         public async Task<IActionResult> UpdateVendor([FromBody] VendorDto vendorDto, int vendorid)
@@ -143,6 +147,7 @@ namespace InventApplication.API.Controllers
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Policy = "Admin")]
         [HttpDelete]
         [Route("vendor/{vendorid}")]
         public async Task<IActionResult> DeleteVendor(int vendorid)

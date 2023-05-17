@@ -5,19 +5,19 @@ using Microsoft.Data.SqlClient;
 
 namespace InventApplication.Infrastructure.Repositories
 {
-    public class BuyerRepository : IBuyerRepository
+    public class CustomerRepository : ICustomerRepository
     {
         private readonly IDataAccess _dataAccess;
-        public BuyerRepository(IDataAccess dataAccess)
+        public CustomerRepository(IDataAccess dataAccess)
         {
             _dataAccess = dataAccess;
         }
-        private bool BuyerExists()
+        private bool CustomerExists()
         {
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
                 connection.Open();
-                var count = connection.ExecuteScalar<int>("SELECT COUNT(*) FROM buyer");
+                var count = connection.ExecuteScalar<int>("SELECT COUNT(*) FROM customer");
                 if (count == 0)
                 {
                     return false;
@@ -26,28 +26,28 @@ namespace InventApplication.Infrastructure.Repositories
             }
         }
 
-        public async Task<bool> AddBuyer(Buyer buyer)
+        public async Task<bool> AddCustomer(Customer customer)
         {
             int result = 0;
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
-                string sql = @"INSERT INTO buyer (buyername,buyergst,phone,email,address) VALUES (@buyername,@buyergst,@phone,@email,@address)";
+                string sql = @"INSERT INTO customer (companyname,customergst,email,phone,address,primarycontactname,contactpersons,receivables) VALUES (@companyname,@customergst,@email,@phone,@address,@primarycontactname,@contactpersons,@receivables)";
                 connection.Open();
-                result = await connection.ExecuteAsync(sql, buyer);
+                result = await connection.ExecuteAsync(sql, customer);
                 connection.Close();
             }
             return result > 0;
         }
 
-        public async Task<IEnumerable<Buyer>> GetAllBuyerAsync()
+        public async Task<IEnumerable<Customer>> GetAllCustomerAsync()
         {
-            if (BuyerExists())
+            if (CustomerExists())
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
-                    string sql = @"SELECT * FROM buyer";
+                    string sql = @"SELECT * FROM customer";
                     connection.Open();
-                    var result = await connection.QueryAsync<Buyer>(sql);
+                    var result = await connection.QueryAsync<Customer>(sql);
                     connection.Close();
                     return result;
                 }
@@ -58,15 +58,15 @@ namespace InventApplication.Infrastructure.Repositories
             }
         }
 
-        public async Task<bool> DeleteBuyer(int buyerid)
+        public async Task<bool> DeleteCustomer(int customerid)
         {
-            if (BuyerExists())
+            if (CustomerExists())
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
-                    string sql = @"DELETE FROM buyer WHERE buyerid=@buyerid";
+                    string sql = @"DELETE FROM customer WHERE customerid=@customerid";
                     connection.Open();
-                    await connection.QueryAsync(sql, new { BuyerId = buyerid });
+                    await connection.QueryAsync(sql, new { customerId = customerid });
                     connection.Close();
                     return true;
                 }
@@ -77,15 +77,15 @@ namespace InventApplication.Infrastructure.Repositories
             }
         }
 
-        public async Task<Buyer> GetBuyerByIdAsync(int buyerid)
+        public async Task<Customer> GetCustomerByIdAsync(int customerid)
         {
-            if (BuyerExists())
+            if (CustomerExists())
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
-                    string sql = @"SELECT * FROM buyer WHERE buyerid=@buyerid";
+                    string sql = @"SELECT * FROM customer WHERE customerid=@customerid";
                     connection.Open();
-                    var result = await connection.QueryAsync<Buyer>(sql, new { BuyerId = buyerid });
+                    var result = await connection.QueryAsync<Customer>(sql, new { CustomerId = customerid });
                     connection.Close();
                     return result.FirstOrDefault();
                 }
@@ -96,15 +96,15 @@ namespace InventApplication.Infrastructure.Repositories
             }
         }
 
-        public async Task<Buyer> GetBuyerByNameAsync(string buyername)
+        public async Task<Customer> GetCustomerByNameAsync(string companyname)
         {
-            if (BuyerExists())
+            if (CustomerExists())
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
-                    string sql = @"SELECT * FROM buyer WHERE buyername=@buyername";
+                    string sql = @"SELECT * FROM customer WHERE companyname=@companyname";
                     connection.Open();
-                    var result = await connection.QueryAsync<Buyer>(sql, new { BuyerName = buyername });
+                    var result = await connection.QueryAsync<Customer>(sql, new { CompanyName = companyname });
                     connection.Close();
                     return result.FirstOrDefault();
                 }
@@ -115,15 +115,15 @@ namespace InventApplication.Infrastructure.Repositories
             }
         }
 
-        public async Task<bool> UpdateBuyer(Buyer buyerUpdate, int buyerid)
+        public async Task<bool> UpdateCustomer(Customer customerUpdate, int customerid)
         {
-            if (BuyerExists())
+            if (CustomerExists())
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
-                    string sql = @"UPDATE buyer Set buyername=@buyername,buyergst=@buyergst,phone=@phone,email=@email,address=@address WHERE buyerid=@buyerid";
+                    string sql = @"UPDATE customer Set companyname=@companyname,customergst=@customergst,email=@email,phone=@phone,address=@address,primarycontactname=@primarycontactname,contactpersons=@contactpersons WHERE customerid=@customerid";
                     connection.Open();
-                    await connection.QueryAsync(sql, buyerUpdate);
+                    await connection.QueryAsync(sql, customerUpdate);
                     connection.Close();
                     return true;
                 }

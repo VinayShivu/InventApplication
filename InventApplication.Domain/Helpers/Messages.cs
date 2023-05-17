@@ -20,17 +20,22 @@
         public const string VendorPrimaryContactNameRequired = "Vendor Primary Contact Name Required";
         #endregion
 
-        #region Buyer
-        public const string BuyerRegisterSuccess = "Buyer added successfully";
-        public const string BuyerUpdateSuccess = "Buyer update successfully";
-        public const string BuyerDeleteSuccess = "Buyer delete successfully";
-        public const string BuyerRegisterError = "Error in adding Buyer";
-        public const string BuyerDeleteError = "Error in deleting Buyer";
-        public const string BuyerUpdateError = "Error in update Buyer";
-        public const string BuyerExists = "Buyer by this name already exists";
-        public const string BuyerNotExists = "Buyer does not exists";
-        public const string InvalidBuyerId = "Buyer by this Id not exists";
-        public const string InvalidBuyer = "Invalid Buyer";
+        #region Customer
+        public const string CustomerRegisterSuccess = "Customer added successfully";
+        public const string CustomerUpdateSuccess = "Customer update successfully";
+        public const string CustomerDeleteSuccess = "Customer delete successfully";
+        public const string CustomerRegisterError = "Error in adding Customer";
+        public const string CustomerDeleteError = "Error in deleting Customer";
+        public const string CustomerUpdateError = "Error in update Customer";
+        public const string CustomerExists = "Customer by this name already exists";
+        public const string CustomerNotExists = "Customer does not exists";
+        public const string InvalidCustomerId = "Customer by this Id not exists";
+        public const string InvalidCustomer = "Invalid Customer";
+        public const string CustomerGSTRequired = "Customer GST% Required";
+        public const string CustomerPhoneRequired = "Customer Phone Number Required";
+        public const string CustomerAddressRequired = "Customer Address Required";
+        public const string CustomerPrimaryContactNameRequired = "Customer Primary Contact Name Required";
+
         #endregion
 
         #region User

@@ -21,8 +21,8 @@ namespace InventApplication.IOC
             services.AddTransient<IDataAccess, DataAccess>();
             services.AddTransient<IVendorService, VendorService>();
             services.AddTransient<IVendorRepository, VendorRepository>();
-            services.AddTransient<IBuyerService, BuyerService>();
-            services.AddTransient<IBuyerRepository, BuyerRepository>();
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IItemsService, ItemsService>();
             services.AddTransient<IItemsRepository, ItemsRepository>();
             services.AddTransient<IPasswordService, PasswordService>();
