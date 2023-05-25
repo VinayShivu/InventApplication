@@ -21,7 +21,7 @@ namespace InventApplication.Infrastructure.Repositories
             {
                 dbConn = new SqlConnection(_dataAccess.GetConnectionString());
                 dbConn.Open();
-                SqlParameter[] sqlParameters = new SqlParameter[10];
+                SqlParameter[] sqlParameters = new SqlParameter[11];
                 sqlParameters[0] = new SqlParameter("@name", SqlDbType.VarChar, int.MaxValue)
                 {
                     Value = items.Name,
@@ -70,13 +70,19 @@ namespace InventApplication.Infrastructure.Repositories
                     Direction = ParameterDirection.Input,
                     SqlDbType = SqlDbType.Int
                 };
-                sqlParameters[8] = new SqlParameter("@sellingprice", SqlDbType.VarChar, int.MaxValue)
+                sqlParameters[8] = new SqlParameter("@sellingprice", SqlDbType.Decimal)
                 {
                     Value = items.SellingPrice,
                     Direction = ParameterDirection.Input,
-                    SqlDbType = SqlDbType.VarChar
+                    SqlDbType = SqlDbType.Decimal
                 };
-                sqlParameters[9] = new SqlParameter("@Status", SqlDbType.Int)
+                sqlParameters[9] = new SqlParameter("@stock", SqlDbType.Int)
+                {
+                    Value = items.Stock,
+                    Direction = ParameterDirection.Input,
+                    SqlDbType = SqlDbType.Int
+                };
+                sqlParameters[10] = new SqlParameter("@Status", SqlDbType.Int)
                 {
                     Direction = ParameterDirection.Output
                 };
