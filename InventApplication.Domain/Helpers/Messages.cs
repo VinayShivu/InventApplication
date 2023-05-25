@@ -44,13 +44,17 @@
         public const string InvalidUsername = "Invalid username";
         public const string InvalidPassword = "Invalid password";
         public const string InvalidEmail = "Invalid Email";
+        public const string InvalidUserId = "Invalid User Id";
         public const string UserNameRequired = "User Name is required";
+        public const string UserIdRequired = "User Id is required";
         public const string UserRoleRequired = "User Role is required";
         public const string UserNotFound = "User Not Found";
-        public const string EmailSent = "Sent Reset Password Link through Email";
+        public const string EmailSent = "Sent Reset Password Link to Email";
         public const string UserResetPasswordUpdateSuccess = "User Reset Password updated successfully";
         public const string UserResetPasswordUpdateError = "Error in resetting user password";
         public const string FailedPasswordResetEmail = "Failed to send password reset email";
+        public const string UserChangePasswordSuccess = "User Changed Password successfully";
+        public const string UserChangePasswordError = "Error in changeing user password";
 
         #endregion
 
@@ -65,6 +69,10 @@
         public const string ItemsNotExists = "Items does not exists";
         public const string InvalidItemsId = "Items by this Id not exists";
         public const string InvalidItems = "Invalid Items";
+        public const string ItemNameRequired = "Item Name Required";
+        public const string UnitRequired = "Item Unit Required";
+        public const string HSNRequired = "Item HSN Code Required";
+        public const string SellingPriceRequired = "Item Selling Price Required";
         #endregion
 
         #region Token

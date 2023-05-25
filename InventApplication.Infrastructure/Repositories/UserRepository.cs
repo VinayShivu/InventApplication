@@ -74,6 +74,25 @@ namespace InventApplication.Repository.Repositories
                 return null;
             }
         }
+
+        public async Task<User> GetUserByID(int userid)
+        {
+            if (UserExists())
+            {
+                using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+                {
+                    string sql = @"SELECT * FROM registertbl WHERE userid=@userid ";
+                    connection.Open();
+                    var result = await connection.QueryAsync<User>(sql, new { UserId = userid });
+                    connection.Close();
+                    return result.FirstOrDefault();
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
         public async Task UpdatePasswordResetToken(string passwordresettoken, int userId, DateTime passwordresettokenexpires)
         {
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
@@ -103,13 +122,13 @@ namespace InventApplication.Repository.Repositories
             }
         }
 
-        public async Task<bool> UpdatePassword(int userid, string newPassword)
+        public async Task<bool> UpdatePassword(int userId, string newPassword)
         {
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
                 string sql = @"UPDATE registertbl SET password=@newPassword, passwordresettoken= NULL, passwordresettokenexpires = NULL WHERE userid = @userid";
                 connection.Open();
-                await connection.ExecuteAsync(sql, new { newPassword, userid });
+                await connection.ExecuteAsync(sql, new { newPassword, userId });
                 connection.Close();
                 return true;
             }

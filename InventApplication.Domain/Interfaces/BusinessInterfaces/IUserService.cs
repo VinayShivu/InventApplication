@@ -9,6 +9,7 @@ namespace InventApplication.Domain.Interfaces.BusinessInterfaces
         public Task<JwtToken> UserLogin(string userName, string password);
         public Task<bool> ForgotPassword(ForgotPasswordRequestDto request);
         public Task<bool> ResetPassword(ResetPasswordRequestDto request);
+        public Task<bool> ChangePassword(ChangePasswordRequestDto request);
 
     }
 }

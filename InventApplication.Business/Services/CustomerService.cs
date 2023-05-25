@@ -98,7 +98,7 @@ namespace InventApplication.Business.Services
             customer.Email = customerRequestUpdateDto.Email;
             customer.Phone = customerRequestUpdateDto.Phone;
             customer.Address = customerRequestUpdateDto.Address;
-            customer.PrimaryContactName =  customerRequestUpdateDto.PrimaryContactName;
+            customer.PrimaryContactName = customerRequestUpdateDto.PrimaryContactName;
             customer.ContactPersons = customerRequestUpdateDto.ContactPersons;
             var retval = await _customerRepository.UpdateCustomer(customer, customerid);
             return retval;

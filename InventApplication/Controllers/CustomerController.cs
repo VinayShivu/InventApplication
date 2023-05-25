@@ -36,7 +36,7 @@ namespace InventApplication.API.Controllers
             {
                 _logger.LogInformation("{success} : Customer :{companyname}", Messages.CustomerRegisterSuccess, customerRequestDto.CompanyName);
                 return Ok(new { message = Messages.CustomerRegisterSuccess, customername = customerAdded, currentDate = DateTime.Now });
-            }   
+            }
             else
             {
                 _logger.LogInformation("{error} : customer :{companyname}", Messages.CustomerRegisterError, customerRequestDto.CompanyName);

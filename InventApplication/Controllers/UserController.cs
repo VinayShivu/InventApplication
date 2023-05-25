@@ -123,5 +123,29 @@ namespace InventApplication.Controllers
                 return BadRequest(new { message = Messages.UserResetPasswordUpdateError, currentDate = DateTime.Now });
             }
         }
+
+        /// <summary>
+        /// Change Password
+        /// </summary>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPost]
+        [Route("api/changepassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordRequestDto request)
+        {
+            _logger.LogInformation("Change Password");
+            var Response = await _userService.ChangePassword(request);
+            if (Response)
+            {
+                _logger.LogInformation("{success}", Messages.UserChangePasswordSuccess);
+                return Ok(new { message = Messages.UserChangePasswordSuccess, currentDate = DateTime.Now });
+            }
+            else
+            {
+                _logger.LogInformation("{error}", Messages.UserChangePasswordError);
+                return BadRequest(new { message = Messages.UserChangePasswordError, currentDate = DateTime.Now });
+            }
+        }
     }
 }
