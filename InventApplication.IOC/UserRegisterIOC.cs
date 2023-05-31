@@ -9,7 +9,6 @@ using InventApplication.Infrastructure.Repositories;
 using InventApplication.Repository.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-
 namespace InventApplication.IOC
 {
     public static class UserRegisterIOC
@@ -29,8 +28,6 @@ namespace InventApplication.IOC
             services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddScoped<IJwtService, JwtService>();
-
-
         }
     }
 }

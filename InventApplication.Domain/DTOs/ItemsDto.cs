@@ -19,6 +19,5 @@ namespace InventApplication.Domain.DTOs
         public int IGST { get; set; }
         [Required(ErrorMessage = Messages.SellingPriceRequired)]
         public decimal SellingPrice { get; set; }
-
     }
 }

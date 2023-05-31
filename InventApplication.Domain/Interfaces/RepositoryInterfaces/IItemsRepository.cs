@@ -4,10 +4,10 @@ namespace InventApplication.Domain.Interfaces.RepositoryInterfaces
 {
     public interface IItemsRepository
     {
-        public Task<bool> AddItems(Items items);
-        public Task<Items> GetItemsByIdAsync(int itemsid);
-        public Task<IEnumerable<Items>> GetAllItemsAsync();
-        public Task<bool> DeleteItems(int itemsid);
-        public Task<Items> GetItemsByNameAsync(string itemsname);
+        public Task<bool> AddItem(Items item);
+        public Task<Items> GetItemByIdAsync(int itemid);
+        public Task<List<Items>> GetAllItemAsync();
+        public Task<bool> DeleteItem(int itemid);
+        public Task<Items> GetItemByNameAsync(string itemname);
     }
 }

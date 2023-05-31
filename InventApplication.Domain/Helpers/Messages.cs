@@ -59,20 +59,22 @@
         #endregion
 
         #region Items
-        public const string ItemsRegisterSuccess = "Items added successfully";
-        public const string ItemsUpdateSuccess = "Items update successfully";
-        public const string ItemsDeleteSuccess = "Items delete successfully";
-        public const string ItemsRegisterError = "Error in adding Items";
-        public const string ItemsDeleteError = "Error in deleting Items";
-        public const string ItemsUpdateError = "Error in update Items";
-        public const string ItemsExists = "Items by this name already exists";
-        public const string ItemsNotExists = "Items does not exists";
-        public const string InvalidItemsId = "Items by this Id not exists";
-        public const string InvalidItems = "Invalid Items";
+        public const string ItemRegisterSuccess = "Item added successfully";
+        public const string ItemUpdateSuccess = "Item updated successfully";
+        public const string ItemDeleteSuccess = "Item deleted successfully";
+        public const string ItemRegisterError = "Error in adding Item";
+        public const string ItemDeleteError = "Error in deleting Item";
+        public const string ItemUpdateError = "Error in update Item";
+        public const string ItemExists = "Item by this name already exists";
+        public const string ItemNotExists = "Item does not exists";
+        public const string InvalidItemId = "Item by this Id not exists";
+        public const string InvalidItemName = "Invalid Item Name";
         public const string ItemNameRequired = "Item Name Required";
         public const string UnitRequired = "Item Unit Required";
         public const string HSNRequired = "Item HSN Code Required";
         public const string SellingPriceRequired = "Item Selling Price Required";
+        public const string SqlConnectionError = "Sql Connection Error";
+
         #endregion
 
         #region Token

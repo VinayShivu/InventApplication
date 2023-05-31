@@ -5,10 +5,11 @@ namespace InventApplication.Domain.Interfaces.BusinessInterfaces
 {
     public interface IItemsService
     {
-        public Task<string> AddItems(ItemsDto items);
-        public Task<Items> GetItemsByIdAsync(int itemsid);
-        public Task<IEnumerable<Items>> GetAllItemsAsync();
-        public Task<bool> UpdateItems(ItemsDto itemsRequestUpdateDto, int itemsid);
-        public Task<bool> DeleteItems(int itemsid);
+        public Task<string> AddItem(ItemsDto item);
+        public Task<Items> GetItemByIdAsync(int itemid);
+        public Task<Items> GetItemByNameAsync(string itemname);
+        public Task<List<Items>> GetAllItemsAsync();
+        public Task<bool> UpdateItem(ItemsDto itemsRequestUpdateDto, int itemid);
+        public Task<bool> DeleteItem(int itemid);
     }
 }

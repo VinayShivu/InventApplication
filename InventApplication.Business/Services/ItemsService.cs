@@ -14,51 +14,69 @@ namespace InventApplication.Business.Services
         {
             _itemRepository = itemRepository;
         }
-        public async Task<string> AddItems(ItemsDto items)
+        public async Task<string> AddItem(ItemsDto item)
         {
-            //var getitems = _itemRepository.GetItemsByNameAsync(items.Name).Result;
-            var getitems = "null";
-            if (getitems == "null")
+            var getitem = _itemRepository.GetItemByNameAsync(item.Name);
+            if (getitem == null)
             {
-                var newItems = new Items
+                var newItem = new Items
                 {
-                    Name = items.Name,
-                    Description = items.Description,
-                    Unit = items.Unit,
-                    HSN = items.HSN,
-                    Brand = items.Brand,
-                    PartCode = items.PartCode,
-                    GST = items.GST,
-                    IGST = items.IGST,
-                    SellingPrice = items.SellingPrice,
-
+                    Name = item.Name,
+                    Description = item.Description,
+                    Unit = item.Unit,
+                    HSN = item.HSN,
+                    Brand = item.Brand,
+                    PartCode = item.PartCode,
+                    GST = item.GST,
+                    IGST = item.IGST,
+                    SellingPrice = item.SellingPrice,
                 };
-                var retVal = await _itemRepository.AddItems(newItems);
+                var retVal = await _itemRepository.AddItem(newItem);
 
-                return retVal ? newItems.Name : null;
+                return retVal ? newItem.Name : null;
             }
             else
             {
-                throw new RepositoryException(Messages.ItemsExists);
+                throw new RepositoryException(Messages.ItemExists);
             }
         }
 
-        public Task<bool> DeleteItems(int itemsid)
+        public Task<bool> DeleteItem(int itemid)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Items>> GetAllItemsAsync()
+        public async Task<List<Items>> GetAllItemsAsync()
         {
-            throw new NotImplementedException();
+            var result = await _itemRepository.GetAllItemAsync();
+            if (result == null)
+            {
+                throw new RepositoryException(Messages.NoData);
+            }
+            return result;
         }
 
-        public Task<Items> GetItemsByIdAsync(int itemsid)
+        public async Task<Items> GetItemByIdAsync(int itemid)
         {
-            throw new NotImplementedException();
+            var result = await _itemRepository.GetItemByIdAsync(itemid);
+            if (result == null)
+            {
+                throw new RepositoryException(Messages.NoData);
+            }
+            return result;
         }
 
-        public Task<bool> UpdateItems(ItemsDto itemsRequestUpdateDto, int itemsid)
+        public async Task<Items> GetItemByNameAsync(string itemname)
+        {
+            var item = await _itemRepository.GetItemByNameAsync(itemname);
+            if (item == null)
+            {
+                throw new RepositoryException(Messages.InvalidItemName);
+            }
+            return item;
+        }
+
+        public Task<bool> UpdateItem(ItemsDto itemsRequestUpdateDto, int itemid)
         {
             throw new NotImplementedException();
         }

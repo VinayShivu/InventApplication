@@ -16,5 +16,6 @@ namespace InventApplication.Domain.Models
         public int IGST { get; set; }
         public decimal SellingPrice { get; set; }
         public int Stock { get; set; }
+        public string Status { get; set; } = "Active";
     }
 }

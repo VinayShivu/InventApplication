@@ -29,6 +29,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4745A297
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventApplication.Tests", "InventApplication.Tests\InventApplication.Tests.csproj", "{E4905392-CF18-4402-A007-A4A609A43E7B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{28169805-9BB4-4263-B9E1-51CB56D81393}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\preetham.c\Documents\script.sql = C:\Users\preetham.c\Documents\script.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +81,7 @@ Global
 		{3F15FD8D-E490-4821-AB95-F680951F3B9E} = {8D125A72-41FE-497B-ADA5-80CCBAE88D99}
 		{4745A297-0DAD-4071-9F62-8FE5D26FF990} = {4C3089BA-6200-438E-B1D1-3AAB60A222DD}
 		{E4905392-CF18-4402-A007-A4A609A43E7B} = {4745A297-0DAD-4071-9F62-8FE5D26FF990}
+		{28169805-9BB4-4263-B9E1-51CB56D81393} = {4C3089BA-6200-438E-B1D1-3AAB60A222DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2B6E2A01-409D-4E44-A5C0-3F3B9E16E284}
