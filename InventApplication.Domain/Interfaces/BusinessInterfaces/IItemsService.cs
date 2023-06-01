@@ -10,6 +10,7 @@ namespace InventApplication.Domain.Interfaces.BusinessInterfaces
         public Task<Items> GetItemByNameAsync(string itemname);
         public Task<List<Items>> GetAllItemsAsync();
         public Task<bool> UpdateItem(ItemsDto itemsRequestUpdateDto, int itemid);
-        public Task<bool> DeleteItem(int itemid);
+        public Task<bool> InactiveItem(int itemid);
+        public Task<bool> ActiveItem(int itemid);
     }
 }

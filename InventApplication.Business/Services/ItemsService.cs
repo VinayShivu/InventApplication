@@ -41,9 +41,24 @@ namespace InventApplication.Business.Services
             }
         }
 
-        public Task<bool> DeleteItem(int itemid)
+        public async Task<bool> InactiveItem(int itemid)
         {
-            throw new NotImplementedException();
+            var result = await _itemRepository.GetItemByIdAsync(itemid);
+            if (result == null)
+            {
+                throw new RepositoryException(Messages.InvalidItemId);
+            }
+            return await _itemRepository.InactiveItem(itemid);
+        }
+
+        public async Task<bool> ActiveItem(int itemid)
+        {
+            var result = await _itemRepository.GetItemByIdAsync(itemid);
+            if (result == null)
+            {
+                throw new RepositoryException(Messages.InvalidItemId);
+            }
+            return await _itemRepository.ActiveItem(itemid);
         }
 
         public async Task<List<Items>> GetAllItemsAsync()

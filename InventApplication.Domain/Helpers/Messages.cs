@@ -65,6 +65,10 @@
         public const string ItemRegisterError = "Error in adding Item";
         public const string ItemDeleteError = "Error in deleting Item";
         public const string ItemUpdateError = "Error in update Item";
+        public const string ItemInActivedSuccess = "Item InActivated successfully";
+        public const string ItemInActivedError = " Error in InActivating Item";
+        public const string ItemActivedSuccess = "Item Activated successfully";
+        public const string ItemActivedError = " Error in Activating Item";
         public const string ItemExists = "Item by this name already exists";
         public const string ItemNotExists = "Item does not exists";
         public const string InvalidItemId = "Item by this Id not exists";

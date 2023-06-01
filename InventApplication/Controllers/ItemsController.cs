@@ -67,6 +67,7 @@ namespace InventApplication.API.Controllers
         /// <summary>
         /// Get Item by Name
         /// </summary>
+        /// <param name="itemname"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -90,6 +91,7 @@ namespace InventApplication.API.Controllers
         /// <summary>
         /// Get Item by Id
         /// </summary>
+        /// <param name="itemid"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -109,5 +111,55 @@ namespace InventApplication.API.Controllers
             }
         }
 
+        /// <summary>
+        /// InActive a Item
+        /// </summary>
+        /// <param name="itemid"></param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPost]
+        [Route("inactiveitem/{itemid}")]
+        public async Task<IActionResult> InActiveItem(int itemid)
+        {
+            _logger.LogInformation("InActive Item Id : {itemid}", itemid);
+            var inactiveitem = await _itemsService.InactiveItem(itemid);
+            if (inactiveitem)
+            {
+                _logger.LogInformation("{success} : Item Id :{itemid}", Messages.ItemInActivedSuccess, itemid);
+                return Ok(new { message = Messages.ItemInActivedSuccess, itemid = itemid, currentDate = DateTime.Now });
+            }
+            else
+            {
+                _logger.LogInformation("{error} : Item Id :{itemid}", Messages.ItemInActivedError, itemid);
+                return BadRequest(new { message = Messages.ItemInActivedError, currentDate = DateTime.Now });
+            }
+        }
+
+
+        /// <summary>
+        /// Active a Item
+        /// </summary>
+        /// <param name="itemid"></param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPost]
+        [Route("activeitem/{itemid}")]
+        public async Task<IActionResult> ActiveItem(int itemid)
+        {
+            _logger.LogInformation("Active Item Id : {itemid}", itemid);
+            var activeitem = await _itemsService.ActiveItem(itemid);
+            if (activeitem)
+            {
+                _logger.LogInformation("{success} : Item Id :{itemid}", Messages.ItemActivedSuccess, itemid);
+                return Ok(new { message = Messages.ItemActivedSuccess, itemid = itemid, currentDate = DateTime.Now });
+            }
+            else
+            {
+                _logger.LogInformation("{error} : Item Id :{itemid}", Messages.ItemActivedError, itemid);
+                return BadRequest(new { message = Messages.ItemActivedError, currentDate = DateTime.Now });
+            }
+        }
     }
 }

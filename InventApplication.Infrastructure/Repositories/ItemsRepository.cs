@@ -1,4 +1,5 @@
-﻿using InventApplication.Domain.Interfaces.RepositoryInterfaces;
+﻿using Dapper;
+using InventApplication.Domain.Interfaces.RepositoryInterfaces;
 using InventApplication.Domain.Models;
 using Microsoft.Data.SqlClient;
 using System.Data;
@@ -13,6 +14,19 @@ namespace InventApplication.Infrastructure.Repositories
             _dataAccess = dataAccess;
         }
 
+        private bool ItemExists()
+        {
+            using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+            {
+                connection.Open();
+                var count = connection.ExecuteScalar<int>("SELECT COUNT(*) FROM items");
+                if (count == 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
         public async Task<bool> AddItem(Items item)
         {
             int result = 0;
@@ -107,9 +121,44 @@ namespace InventApplication.Infrastructure.Repositories
             return result > 0;
         }
 
-        public Task<bool> DeleteItem(int itemid)
+        public async Task<bool> InactiveItem(int itemid)
         {
-            throw new NotImplementedException();
+            if (ItemExists())
+            {
+                using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+                {
+                    string query = "UPDATE items SET status = @Status WHERE itemid = @ItemId";
+                    var parameters = new { Status = "InActive", ItemId = itemid };
+                    connection.Open();
+                    await connection.ExecuteAsync(query, parameters);
+                    connection.Close();
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> ActiveItem(int itemid)
+        {
+            if (ItemExists())
+            {
+                using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+                {
+                    string query = "UPDATE items SET status = @Status WHERE itemid = @ItemId";
+                    var parameters = new { Status = "Active", ItemId = itemid };
+                    connection.Open();
+                    await connection.ExecuteAsync(query, parameters);
+                    connection.Close();
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task<List<Items>> GetAllItemAsync()
