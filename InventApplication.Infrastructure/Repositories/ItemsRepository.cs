@@ -333,5 +333,24 @@ namespace InventApplication.Infrastructure.Repositories
                 connection.Close();
             }
         }
+
+        public async Task<bool> UpdateItem(Items itemUpdate, int itemid)
+        {
+            if (ItemExists())
+            {
+                using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
+                {
+                    string sql = @"UPDATE items Set name=@name,description=@description,unit=@unit,hsn=@hsn,brand=@brand,partcode=@partcode,gst=@gst,igst=@igst,sellingprice=@sellingprice WHERE itemid=@itemid";
+                    connection.Open();
+                    await connection.QueryAsync(sql, itemUpdate);
+                    connection.Close();
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

@@ -161,5 +161,30 @@ namespace InventApplication.API.Controllers
                 return BadRequest(new { message = Messages.ItemActivedError, currentDate = DateTime.Now });
             }
         }
+
+        /// <summary>
+        /// Update Item
+        /// </summary>
+        /// <param name="itemDto">Item update request</param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPut]
+        [Route("item/{itemid}")]
+        public async Task<IActionResult> UpdateItem([FromBody] ItemsDto itemDto, int itemid)
+        {
+            _logger.LogInformation("Updating Item : Item Name: {itemname}", itemDto.Name);
+            var updatedItem = await _itemsService.UpdateItem(itemDto, itemid);
+            if (updatedItem)
+            {
+                _logger.LogInformation("{success} : Item Name: {itemname}", Messages.ItemUpdateSuccess, itemDto.Name);
+                return Ok(new { message = Messages.ItemUpdateSuccess, currentDate = DateTime.Now });
+            }
+            else
+            {
+                _logger.LogInformation("{error} : Item Name: {itemname}", Messages.ItemUpdateError, itemDto.Name);
+                return BadRequest(new { message = Messages.ItemUpdateError, currentDate = DateTime.Now });
+            }
+        }
     }
 }

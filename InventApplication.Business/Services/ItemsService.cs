@@ -91,9 +91,24 @@ namespace InventApplication.Business.Services
             return item;
         }
 
-        public Task<bool> UpdateItem(ItemsDto itemsRequestUpdateDto, int itemid)
+        public async Task<bool> UpdateItem(ItemsDto itemsRequestUpdateDto, int itemid)
         {
-            throw new NotImplementedException();
+            var item = await _itemRepository.GetItemByIdAsync(itemid);
+            if (item == null)
+            {
+                throw new RepositoryException(Messages.InvalidItemId);
+            }
+            item.Name = itemsRequestUpdateDto.Name;
+            item.Description = itemsRequestUpdateDto.Description;
+            item.Unit = itemsRequestUpdateDto.Unit;
+            item.HSN = itemsRequestUpdateDto.HSN;
+            item.Brand = itemsRequestUpdateDto.Brand;
+            item.PartCode = itemsRequestUpdateDto.PartCode;
+            item.GST = itemsRequestUpdateDto.GST;
+            item.IGST = itemsRequestUpdateDto.IGST;
+            item.SellingPrice = itemsRequestUpdateDto.SellingPrice;
+            var retval = await _itemRepository.UpdateItem(item, itemid);
+            return retval;
         }
     }
 }

@@ -10,5 +10,6 @@ namespace InventApplication.Domain.Interfaces.RepositoryInterfaces
         public Task<Items> GetItemByNameAsync(string itemname);
         public Task<bool> InactiveItem(int itemid);
         public Task<bool> ActiveItem(int itemid);
+        public Task<bool> UpdateItem(Items itemUpdate, int itemid);
     }
 }
