@@ -165,7 +165,7 @@ namespace InventApplication.API.Controllers
         /// <summary>
         /// Update Item
         /// </summary>
-        /// <param name="itemDto">Item update request</param>
+        /// <param name="itemDto"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

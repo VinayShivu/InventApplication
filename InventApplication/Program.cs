@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,12 +25,19 @@ var Configuration = builder.Configuration;
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "InventApp", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo
+            { 
+                Title = "InventApp", 
+                Version = "v1", 
+                Description ="Inventory Application Learing Demo", 
+                TermsOfService= new Uri("https://swagger.io/"),
+                Contact = new OpenApiContact { Name = "Preetham", Email = "preetham.c@excelindia.com", Url= new Uri("https://www.zoho.com/in/inventory/inventory-software-demo/#/home/inventory-dashboard") }
+            });
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
+        Name = "Authorization",
         In = ParameterLocation.Header,
         Description = "Please Enter Token",
-        Name = "Authorization",
         Type = SecuritySchemeType.Http,
         BearerFormat = "JWT",
         Scheme = "Bearer"
@@ -41,13 +49,16 @@ builder.Services.AddSwaggerGen(options =>
             {
                 Reference = new OpenApiReference
                 {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
+                    Id="Bearer",
+                    Type=ReferenceType.SecurityScheme
                 }
             },
-            new string[]{}
+            new List<string>()
         }
     });
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
 });
 
 builder.Services.AddControllers();

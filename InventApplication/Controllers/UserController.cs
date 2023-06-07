@@ -22,19 +22,36 @@ namespace InventApplication.Controllers
             _jwtService = jwtService;
         }
 
-
+        /// <summary>
+        /// Register a User
+        /// </summary>
+        /// <param name="userDetails"></param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         [Route("api/register")]
-        public IActionResult RegisterUser([FromBody] UserDto model)
+        public async Task<IActionResult> RegisterUser([FromBody] UserDto userDetails)
         {
-            _userService.RegisterUser(model);
-            return new OkObjectResult(new { message = "User Registered" });
-
+            _logger.LogInformation("Register a User");
+            var userRegistered = await _userService.RegisterUser(userDetails);
+            if (userRegistered != null)
+            {
+                _logger.LogInformation("{success} : User :{username}", Messages.UserRegisterSuccess, userDetails.Username);
+                return Ok(new { message = Messages.UserRegisterSuccess, username = userDetails.Username, currentDate = DateTime.Now });
+            }
+            else
+            {
+                _logger.LogInformation("{error} : User :{username}", Messages.UserRegisterError, userDetails.Username);
+                return BadRequest(new { message = Messages.UserRegisterError, currentDate = DateTime.Now });
+            }
         }
 
         /// <summary>
-        /// Get all login
+        /// Login User
         /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -57,12 +74,13 @@ namespace InventApplication.Controllers
         /// <summary>
         /// Get refresh token
         /// </summary>
+        /// <param name="request"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         [Route("api/refreshtoken")]
-        public async Task<IActionResult> RefreshToken(RefreshTokenRequest request)
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {
             _logger.LogInformation("Get Refreshtoken response");
             JwtToken tokenResponse = await _jwtService.GetRefreshToken(request);
@@ -79,6 +97,7 @@ namespace InventApplication.Controllers
         /// <summary>
         /// Send Link to Reset Password
         /// </summary>
+        /// <param name="request"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -103,6 +122,7 @@ namespace InventApplication.Controllers
         /// <summary>
         /// Reset Password
         /// </summary>
+        /// <param name="request"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -127,6 +147,7 @@ namespace InventApplication.Controllers
         /// <summary>
         /// Change Password
         /// </summary>
+        /// <param name="request"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

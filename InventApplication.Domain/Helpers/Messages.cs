@@ -39,6 +39,8 @@
         #endregion
 
         #region User
+        public const string UserRegisterSuccess = "User added successfully";
+        public const string UserRegisterError = "Error in adding User";
         public const string NoData = "No Data Found";
         public const string UserExists = "User by this username already exists";
         public const string InvalidUsername = "Invalid username";

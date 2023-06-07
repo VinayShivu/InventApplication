@@ -70,6 +70,7 @@ namespace InventApplication.API.Controllers
         /// <summary>
         /// Get Customer by Id
         /// </summary>
+        /// <param name="customerid"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -94,6 +95,7 @@ namespace InventApplication.API.Controllers
         /// <summary>
         /// Get Customer by Name
         /// </summary>
+        /// <param name="companyname"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -118,7 +120,7 @@ namespace InventApplication.API.Controllers
         /// <summary>
         /// Update Customer
         /// </summary>
-        /// <param name="customerDto">Customer update request</param>
+        /// <param name="customerDto"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -144,7 +146,7 @@ namespace InventApplication.API.Controllers
         /// <summary>
         /// Delete Customer
         /// </summary>
-        /// <param name="customerid">Customer id to delete</param>
+        /// <param name="customerid"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

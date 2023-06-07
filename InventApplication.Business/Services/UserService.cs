@@ -45,7 +45,7 @@ namespace InventApplication.Business.Services
 
         #endregion
 
-        public void RegisterUser(UserDto model)
+        public async Task<string> RegisterUser(UserDto model)
         {
             var getuser = _userRepository.GetByUserName(model.Username).Result;
             if (getuser == null)
@@ -57,7 +57,10 @@ namespace InventApplication.Business.Services
                     Email = model.Email,
                     Roles = model.Roles
                 };
-                _userRepository.RegisterUser(user);
+
+                var retVal = await _userRepository.RegisterUser(user);
+
+                return retVal ? user.Username : null;
             }
             else
             {

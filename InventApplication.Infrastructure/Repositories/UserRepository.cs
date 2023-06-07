@@ -27,8 +27,9 @@ namespace InventApplication.Repository.Repositories
             }
         }
 
-        public async void RegisterUser(UserDto model)
+        public async Task<bool> RegisterUser(UserDto model)
         {
+            int result = 0;
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
                 string sql = @"INSERT INTO registertbl (username,password,email,roles) VALUES (@username,@password,@email,@roles)";
@@ -36,6 +37,7 @@ namespace InventApplication.Repository.Repositories
                 await connection.ExecuteAsync(sql, model);
                 connection.Close();
             }
+            return result > 0;
         }
         public async Task<User> GetByUserName(string username)
         {

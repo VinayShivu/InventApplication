@@ -5,7 +5,7 @@ namespace InventApplication.Domain.Interfaces.RepositoryInterfaces
 {
     public interface IUserRepository
     {
-        public void RegisterUser(UserDto model);
+        public Task<bool> RegisterUser(UserDto model);
         public Task<User> GetByUserName(string username);
         public Task<User> GetUserByEmail(string email);
         public Task<User> GetUserByID(int userid);
