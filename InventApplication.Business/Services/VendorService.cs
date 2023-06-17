@@ -4,6 +4,7 @@ using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
 using InventApplication.Domain.Models;
+using Newtonsoft.Json;
 
 namespace InventApplication.Business.Services
 {
@@ -14,7 +15,7 @@ namespace InventApplication.Business.Services
         {
             _vendorRepository = vendorRepository;
         }
-        public async Task<string> AddVendor(VendorDto vendor)
+        public async Task<string> AddVendor(VendorRequestDto vendor)
         {
             var getvendor = _vendorRepository.GetVendorByNameAsync(vendor.CompanyName).Result;
             if (getvendor == null)
@@ -25,11 +26,12 @@ namespace InventApplication.Business.Services
                     VendorGST = vendor.VendorGST,
                     Email = vendor.Email,
                     Phone = vendor.Phone,
-                    Address = vendor.Address,
+                    Address = JsonConvert.SerializeObject(vendor.Address),
                     PrimaryContactName = vendor.PrimaryContactName,
-                    ContactPersons = vendor.ContactPersons,
+                    ContactPersons = JsonConvert.SerializeObject(vendor.ContactPersons),
+                    Remarks = vendor.Remarks
                 };
-                var retVal = await _vendorRepository.AddVendor(newVendor);
+                bool retVal = await _vendorRepository.AddVendor(newVendor);
 
                 return retVal ? newVendor.CompanyName : null;
             }
@@ -39,7 +41,7 @@ namespace InventApplication.Business.Services
             }
         }
 
-        public async Task<IEnumerable<Vendor>> GetAllVendorAsync()
+        public async Task<IEnumerable<VendorResponseDto>> GetAllVendorAsync()
         {
             var result = await _vendorRepository.GetAllVendorAsync();
             if (result == null)
@@ -47,41 +49,68 @@ namespace InventApplication.Business.Services
                 throw new RepositoryException(Messages.NoData);
             }
             return result.Select(vendor => vendor)
-             .Select(vendor => new Vendor
+             .Select(vendor => new VendorResponseDto
              {
                  VendorId = vendor.VendorId,
                  CompanyName = vendor.CompanyName,
                  VendorGST = vendor.VendorGST,
                  Email = vendor.Email,
                  Phone = vendor.Phone,
-                 Address = vendor.Address,
+                 Address = JsonConvert.DeserializeObject<Address>(vendor.Address),
                  PrimaryContactName = vendor.PrimaryContactName,
-                 ContactPersons = vendor.ContactPersons,
-                 Payables = vendor.Payables
+                 ContactPersons = JsonConvert.DeserializeObject<List<ContactPersons>>(vendor.ContactPersons),
+                 Payables = vendor.Payables,
+                 Remarks = vendor.Remarks
              });
         }
 
-        public async Task<Vendor> GetVendorByIdAsync(int vendorid)
+        public async Task<VendorResponseDto> GetVendorByIdAsync(int vendorid)
         {
             var vendor = await _vendorRepository.GetVendorByIdAsync(vendorid);
             if (vendor == null)
             {
                 throw new RepositoryException(Messages.InvalidVendorId);
             }
-            return vendor;
+            var result = new VendorResponseDto
+            {
+                VendorId = vendor.VendorId,
+                CompanyName = vendor.CompanyName,
+                VendorGST = vendor.VendorGST,
+                Email = vendor.Email,
+                Phone = vendor.Phone,
+                Address = JsonConvert.DeserializeObject<Address>(vendor.Address),
+                PrimaryContactName = vendor.PrimaryContactName,
+                ContactPersons = JsonConvert.DeserializeObject<List<ContactPersons>>(vendor.ContactPersons),
+                Payables = vendor.Payables,
+                Remarks = vendor.Remarks
+            };
+            return result;
         }
 
-        public async Task<Vendor> GetVendorByNameAsync(string companyname)
+        public async Task<VendorResponseDto> GetVendorByNameAsync(string companyname)
         {
             var vendor = await _vendorRepository.GetVendorByNameAsync(companyname);
             if (vendor == null)
             {
                 throw new RepositoryException(Messages.InvalidCompanyName);
             }
-            return vendor;
+            var result = new VendorResponseDto
+            {
+                VendorId = vendor.VendorId,
+                CompanyName = vendor.CompanyName,
+                VendorGST = vendor.VendorGST,
+                Email = vendor.Email,
+                Phone = vendor.Phone,
+                Address = JsonConvert.DeserializeObject<Address>(vendor.Address),
+                PrimaryContactName = vendor.PrimaryContactName,
+                ContactPersons = JsonConvert.DeserializeObject<List<ContactPersons>>(vendor.ContactPersons),
+                Payables = vendor.Payables,
+                Remarks = vendor.Remarks
+            };
+            return result;
         }
 
-        public async Task<bool> UpdateVendor(VendorDto vendorRequestUpdateDto, int vendorid)
+        public async Task<bool> UpdateVendor(VendorRequestDto vendorRequestUpdateDto, int vendorid)
         {
             var vendor = await _vendorRepository.GetVendorByIdAsync(vendorid);
             if (vendor == null)
@@ -97,10 +126,11 @@ namespace InventApplication.Business.Services
             vendor.VendorGST = vendorRequestUpdateDto.VendorGST;
             vendor.Email = vendorRequestUpdateDto.Email;
             vendor.Phone = vendorRequestUpdateDto.Phone;
-            vendor.Address = vendorRequestUpdateDto.Address;
+            vendor.Address = JsonConvert.SerializeObject(vendorRequestUpdateDto.Address);
             vendor.PrimaryContactName = vendorRequestUpdateDto.PrimaryContactName;
-            vendor.ContactPersons = vendorRequestUpdateDto.ContactPersons;
-            var retval = await _vendorRepository.UpdateVendor(vendor, vendorid);
+            vendor.ContactPersons = JsonConvert.SerializeObject(vendorRequestUpdateDto.ContactPersons);
+            vendor.Remarks = vendorRequestUpdateDto.Remarks;
+            bool retval = await _vendorRepository.UpdateVendor(vendor, vendorid);
             return retval;
         }
 

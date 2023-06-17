@@ -28,7 +28,7 @@ namespace InventApplication.API.Controllers
         [Authorize(Policy = "Admin")]
         [HttpPost]
         [Route("vendor")]
-        public async Task<IActionResult> Addvendor(VendorDto vendorRequestDto)
+        public async Task<IActionResult> Addvendor(VendorRequestDto vendorRequestDto)
         {
             _logger.LogInformation("Adding vendor: {vendorname}", vendorRequestDto.CompanyName);
             var vendorAdded = await _vendorService.AddVendor(vendorRequestDto);
@@ -124,7 +124,7 @@ namespace InventApplication.API.Controllers
         [Authorize(Policy = "Admin")]
         [HttpPut]
         [Route("vendor/{vendorid}")]
-        public async Task<IActionResult> UpdateVendor([FromBody] VendorDto vendorDto, int vendorid)
+        public async Task<IActionResult> UpdateVendor([FromBody] VendorRequestDto vendorDto, int vendorid)
         {
             _logger.LogInformation("Updating Vendor : Vendor Name: {vendorname}", vendorDto.CompanyName);
             var updatedVendor = await _vendorService.UpdateVendor(vendorDto, vendorid);

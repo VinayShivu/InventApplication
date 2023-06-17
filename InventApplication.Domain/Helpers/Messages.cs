@@ -14,6 +14,7 @@
         public const string InvalidVendorId = "Vendor by this Id not exists";
         public const string InvalidCompanyName = "Invalid Company Name";
         public const string CompanyNameRequired = "Company Name Required";
+        public const string VendorIdRequired = "Vendor Id Required";
         public const string VendorGSTRequired = "Vendor GST% Required";
         public const string VendorPhoneRequired = "Vendor Phone Number Required";
         public const string VendorAddressRequired = "Vendor Address Required";
@@ -106,6 +107,23 @@
         public const string RefreshTokenRequired = "Refresh Token is required";
         public const string InvalidEmailFormat = "Invalid email address format";
         public const string InvalidPhoneNumber = "Invalid Phone Number";
+        #endregion
+
+        #region Purchase
+        public const string BillNoRequired = "Bill Number Required";
+        public const string BillDateRequired = "Bill Date Required";
+        public const string InvalidItemorItemData = "Invalid Item or Item Datas";
+        public const string PurchaseRegisterSuccess = "Purchase added successfully";
+        public const string PurchaseUpdateSuccess = "Purchase update successfully";
+        public const string PurchaseDeleteSuccess = "Purchase delete successfully";
+        public const string PurchaseRegisterError = "Error in adding Purchase";
+        public const string PurchaseDeleteError = "Error in deleting Purchase";
+        public const string PurchaseUpdateError = "Error in update Purchase";
+        public const string PurchaseExists = "Purchase by this name already exists";
+        public const string PurchaseNotExists = "Purchase does not exists";
+        public const string InvalidPurchaseId = "Purchase by this Id not exists";
+        public const string UpdateItemStockError = "Error in Updating Item Stock during Purchase";
+        public const string UpdatePayabletoVendorError = "Error in Updating Payable Amopunt to Vendor during Purchase";
         #endregion
     }
 }

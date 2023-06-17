@@ -7,7 +7,6 @@ namespace InventApplication.Domain.DTOs
     public class UserDto
     {
         [Required(ErrorMessage = Messages.CompanyNameRequired)]
-        [RegularExpression(@".{4,360}", ErrorMessage = Messages.Min4Max360)]
         public string Username { get; set; }
 
         [RegularExpression(@".{2,32}", ErrorMessage = Messages.Min2Max32)]

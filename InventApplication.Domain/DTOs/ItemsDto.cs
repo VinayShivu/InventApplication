@@ -6,7 +6,6 @@ namespace InventApplication.Domain.DTOs
     public class ItemsDto
     {
         [Required(ErrorMessage = Messages.ItemNameRequired)]
-        [RegularExpression(@".{4,360}", ErrorMessage = Messages.Min4Max360)]
         public string Name { get; set; }
         public string Description { get; set; }
         [Required(ErrorMessage = Messages.UnitRequired)]

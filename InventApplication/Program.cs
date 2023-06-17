@@ -26,13 +26,13 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
-            { 
-                Title = "InventApp", 
-                Version = "v1", 
-                Description ="Inventory Application Learing Demo", 
-                TermsOfService= new Uri("https://swagger.io/"),
-                Contact = new OpenApiContact { Name = "Preetham", Email = "preetham.c@excelindia.com", Url= new Uri("https://www.zoho.com/in/inventory/inventory-software-demo/#/home/inventory-dashboard") }
-            });
+    {
+        Title = "InventApp",
+        Version = "v1",
+        Description = "Inventory Application Learing Demo",
+        TermsOfService = new Uri("https://swagger.io/"),
+        Contact = new OpenApiContact { Name = "Preetham", Email = "preetham.c@excelindia.com", Url = new Uri("https://www.zoho.com/in/inventory/inventory-software-demo/#/home/inventory-dashboard") }
+    });
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -107,7 +107,7 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
-UserRegisterIOC.RegisterService(builder.Services);
+ServicesRegisterIOC.RegisterService(builder.Services);
 
 var app = builder.Build();
 
@@ -119,6 +119,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.MapHealthChecks("/health", new HealthCheckOptions
 {

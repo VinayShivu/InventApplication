@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace InventApplication.IOC
 {
-    public static class UserRegisterIOC
+    public static class ServicesRegisterIOC
     {
         public static void RegisterService(IServiceCollection services)
         {
@@ -24,6 +24,8 @@ namespace InventApplication.IOC
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IItemsService, ItemsService>();
             services.AddTransient<IItemsRepository, ItemsRepository>();
+            services.AddTransient<IPurchaseService, PurchaseService>();
+            services.AddTransient<IPurchaseRepository, PurchaseRepository>();
             services.AddTransient<IPasswordService, PasswordService>();
             services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddTransient<IEmailService, EmailService>();
