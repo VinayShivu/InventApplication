@@ -1,4 +1,4 @@
-﻿namespace InventApplication.Domain.DTOs
+﻿namespace InventApplication.Domain.DTOs.User
 {
     public class TokenResponse
     {

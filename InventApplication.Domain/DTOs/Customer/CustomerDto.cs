@@ -2,7 +2,7 @@
 using InventApplication.Domain.Validators;
 using System.ComponentModel.DataAnnotations;
 
-namespace InventApplication.Domain.DTOs
+namespace InventApplication.Domain.DTOs.Customer
 {
     public class CustomerDto
     {
@@ -10,7 +10,7 @@ namespace InventApplication.Domain.DTOs
         public string CompanyName { get; set; }
         [Required(ErrorMessage = Messages.CustomerGSTRequired)]
         public string CustomerGST { get; set; }
-        [ValidateEmailAttribute(ErrorMessage = Messages.InvalidEmail)]
+        [ValidateEmail(ErrorMessage = Messages.InvalidEmail)]
         public string Email { get; set; }
         [Required(ErrorMessage = Messages.CustomerPhoneRequired)]
         [DataType(DataType.PhoneNumber)]

@@ -1,4 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.Vendor;
 
 namespace InventApplication.Domain.Interfaces.BusinessInterfaces
 {

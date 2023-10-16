@@ -1,4 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.Customer;
 using InventApplication.Domain.Exceptions;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
@@ -35,7 +35,7 @@ namespace InventApplication.Business.Services
             }
             else
             {
-                throw new RepositoryException(Messages.CustomerExists);
+                throw new ConflictException(Messages.CustomerExists);
             }
         }
 
@@ -44,7 +44,7 @@ namespace InventApplication.Business.Services
             var result = await _customerRepository.GetAllCustomerAsync();
             if (result == null)
             {
-                throw new RepositoryException(Messages.NoData);
+                throw new CustomException(Messages.NoData);
             }
             return result.Select(customer => customer)
              .Select(customer => new Customer
@@ -66,7 +66,7 @@ namespace InventApplication.Business.Services
             var customer = await _customerRepository.GetCustomerByIdAsync(customerid);
             if (customer == null)
             {
-                throw new RepositoryException(Messages.InvalidCustomerId);
+                throw new NotFoundException(Messages.InvalidCustomerId);
             }
             return customer;
         }
@@ -76,7 +76,7 @@ namespace InventApplication.Business.Services
             var customer = await _customerRepository.GetCustomerByNameAsync(companyname);
             if (customer == null)
             {
-                throw new RepositoryException(Messages.InvalidCompanyName);
+                throw new NotFoundException(Messages.InvalidCompanyName);
             }
             return customer;
         }
@@ -86,12 +86,12 @@ namespace InventApplication.Business.Services
             var customer = await _customerRepository.GetCustomerByIdAsync(customerid);
             if (customer == null)
             {
-                throw new RepositoryException(Messages.InvalidCustomerId);
+                throw new NotFoundException(Messages.InvalidCustomerId);
             }
             var getcustomer = _customerRepository.GetCustomerByNameAsync(customerRequestUpdateDto.CompanyName).Result;
             if (getcustomer != null && getcustomer.CustomerId != customerid)
             {
-                throw new RepositoryException(Messages.CustomerExists);
+                throw new ConflictException(Messages.CustomerExists);
             }
             customer.CompanyName = customerRequestUpdateDto.CompanyName;
             customer.CustomerGST = customerRequestUpdateDto.CustomerGST;
@@ -109,7 +109,7 @@ namespace InventApplication.Business.Services
             var customer = await _customerRepository.GetCustomerByIdAsync(customerid);
             if (customer == null)
             {
-                throw new RepositoryException(Messages.InvalidCustomerId);
+                throw new NotFoundException(Messages.InvalidCustomerId);
             }
             return await _customerRepository.DeleteCustomer(customerid);
         }

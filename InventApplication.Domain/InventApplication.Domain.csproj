@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
-    <Folder Include="Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>

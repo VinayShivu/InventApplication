@@ -1,4 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.Items;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -60,7 +60,7 @@ namespace InventApplication.API.Controllers
             }
             else
             {
-                return BadRequest(new { message = Messages.NoData, currentDate = DateTime.Now });
+                return NoContent();
             }
         }
 
@@ -83,7 +83,7 @@ namespace InventApplication.API.Controllers
             }
             else
             {
-                return BadRequest(new { message = Messages.NoData, currentDate = DateTime.Now });
+                return NoContent();
             }
         }
 
@@ -107,7 +107,7 @@ namespace InventApplication.API.Controllers
             }
             else
             {
-                return BadRequest(new { message = Messages.NoData, currentDate = DateTime.Now });
+                return NoContent();
             }
         }
 

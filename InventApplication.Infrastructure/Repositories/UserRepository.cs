@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using InventApplication.Domain.DTOs;
+using InventApplication.Domain.DTOs.User;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
 using InventApplication.Domain.Models;
 using Microsoft.Data.SqlClient;

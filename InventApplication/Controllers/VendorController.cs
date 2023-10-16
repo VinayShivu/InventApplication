@@ -1,4 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.Vendor;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using Microsoft.AspNetCore.Authorization;

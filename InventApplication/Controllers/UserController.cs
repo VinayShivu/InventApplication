@@ -1,4 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.User;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using InventApplication.Domain.Interfaces.JWT;

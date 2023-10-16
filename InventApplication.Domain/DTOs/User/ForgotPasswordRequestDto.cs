@@ -1,11 +1,11 @@
 ﻿using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Validators;
 
-namespace InventApplication.Domain.DTOs
+namespace InventApplication.Domain.DTOs.User
 {
     public class ForgotPasswordRequestDto
     {
-        [ValidateEmailAttribute(ErrorMessage = Messages.InvalidEmail)]
+        [ValidateEmail(ErrorMessage = Messages.InvalidEmail)]
         public string Email { get; set; }
     }
 }

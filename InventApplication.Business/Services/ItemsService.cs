@@ -1,4 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.Items;
 using InventApplication.Domain.Exceptions;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
@@ -37,7 +37,7 @@ namespace InventApplication.Business.Services
             }
             else
             {
-                throw new RepositoryException(Messages.ItemExists);
+                throw new ConflictException(Messages.ItemExists);
             }
         }
 
@@ -46,7 +46,7 @@ namespace InventApplication.Business.Services
             var result = await _itemRepository.GetItemByIdAsync(itemid);
             if (result == null)
             {
-                throw new RepositoryException(Messages.InvalidItemId);
+                throw new NotFoundException(Messages.InvalidItemId);
             }
             return await _itemRepository.InactiveItem(itemid);
         }
@@ -56,7 +56,7 @@ namespace InventApplication.Business.Services
             var result = await _itemRepository.GetItemByIdAsync(itemid);
             if (result == null)
             {
-                throw new RepositoryException(Messages.InvalidItemId);
+                throw new NotFoundException(Messages.InvalidItemId);
             }
             return await _itemRepository.ActiveItem(itemid);
         }
@@ -66,7 +66,7 @@ namespace InventApplication.Business.Services
             var result = await _itemRepository.GetAllItemAsync();
             if (result == null)
             {
-                throw new RepositoryException(Messages.NoData);
+                throw new CustomException(Messages.NoData);
             }
             return result;
         }
@@ -76,7 +76,7 @@ namespace InventApplication.Business.Services
             var result = await _itemRepository.GetItemByIdAsync(itemid);
             if (result == null)
             {
-                throw new RepositoryException(Messages.NoData);
+                throw new CustomException(Messages.NoData);
             }
             return result;
         }
@@ -86,7 +86,7 @@ namespace InventApplication.Business.Services
             var item = await _itemRepository.GetItemByNameAsync(itemname);
             if (item == null)
             {
-                throw new RepositoryException(Messages.InvalidItemName);
+                throw new NotFoundException(Messages.InvalidItemName);
             }
             return item;
         }
@@ -96,7 +96,7 @@ namespace InventApplication.Business.Services
             var item = await _itemRepository.GetItemByIdAsync(itemid);
             if (item == null)
             {
-                throw new RepositoryException(Messages.InvalidItemId);
+                throw new NotFoundException(Messages.InvalidItemId);
             }
             item.Name = itemsRequestUpdateDto.Name;
             item.Description = itemsRequestUpdateDto.Description;

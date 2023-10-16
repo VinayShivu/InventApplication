@@ -1,4 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.User;
 using InventApplication.Domain.Exceptions;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
@@ -64,7 +64,7 @@ namespace InventApplication.Business.Services
             }
             else
             {
-                throw new RepositoryException(Messages.UserExists);
+                throw new ConflictException(Messages.UserExists);
             }
         }
 
@@ -76,12 +76,12 @@ namespace InventApplication.Business.Services
                 var user = await _userRepository.GetByUserName(userName);
                 if (user == null)
                 {
-                    throw new RepositoryException(Messages.InvalidUsername);
+                    throw new NotFoundException(Messages.InvalidUsername);
                 }
                 bool verifiedpassword = _passwordService.VerifyPassword(password, user.Password);
                 if (!verifiedpassword)
                 {
-                    throw new RepositoryException(Messages.InvalidPassword);
+                    throw new NotFoundException(Messages.InvalidPassword);
                 }
 
                 jwtToken = _jwtService.GenerateJwtToken(user);
@@ -93,7 +93,7 @@ namespace InventApplication.Business.Services
 
         public async Task<bool> ForgotPassword(ForgotPasswordRequestDto request)
         {
-            var user = await _userRepository.GetUserByEmail(request.Email) ?? throw new RepositoryException(Messages.InvalidEmail);
+            var user = await _userRepository.GetUserByEmail(request.Email) ?? throw new NotFoundException(Messages.InvalidEmail);
             var token = GeneratePasswordResetToken().ToString();
             var passwordresettokenexpires = DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["JwtSettings:PasswordResetTokenExpirationMinutes"]));
             await _userRepository.UpdatePasswordResetToken(token, user.UserId, passwordresettokenexpires);
@@ -101,17 +101,17 @@ namespace InventApplication.Business.Services
             bool emailSent = await _emailService.SendPasswordResetEmail(user.Email, token);
             if (!emailSent)
             {
-                throw new RepositoryException(Messages.FailedPasswordResetEmail);
+                throw new Exception(Messages.FailedPasswordResetEmail);
             }
             return emailSent;
         }
 
         public async Task<bool> ResetPassword(ResetPasswordRequestDto request)
         {
-            var user = await _userRepository.GetUserByPasswordResetToken(request.PasswordResetToken) ?? throw new RepositoryException(Messages.UserNotFound);
+            var user = await _userRepository.GetUserByPasswordResetToken(request.PasswordResetToken) ?? throw new NotFoundException(Messages.UserNotFound);
             if (user == null || user.PasswordResetTokenExpires <= DateTime.Now)
             {
-                throw new RepositoryException(Messages.PasswordResetTokenExpired);
+                throw new Exception(Messages.PasswordResetTokenExpired);
             }
             var newpassword = _passwordService.HashPassword(request.NewPassword);
             bool result = await _userRepository.UpdatePassword(user.UserId, newpassword);
@@ -123,12 +123,12 @@ namespace InventApplication.Business.Services
             var user = await _userRepository.GetUserByID(request.UserId);
             if (user == null)
             {
-                throw new RepositoryException(Messages.InvalidUserId);
+                throw new NotFoundException(Messages.InvalidUserId);
             }
             bool verifiedpassword = _passwordService.VerifyPassword(request.CurrentPassword, user.Password);
             if (!verifiedpassword)
             {
-                throw new RepositoryException(Messages.InvalidPassword);
+                throw new NotFoundException(Messages.InvalidPassword);
             }
             var newpassword = _passwordService.HashPassword(request.NewPassword);
             bool result = await _userRepository.UpdatePassword(user.UserId, newpassword);

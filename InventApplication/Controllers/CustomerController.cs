@@ -1,4 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.Customer;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -25,7 +25,7 @@ namespace InventApplication.API.Controllers
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize(Policy = "Admin")]
+        //[Authorize(Policy = "Admin")]
         [HttpPost]
         [Route("customer")]
         public async Task<IActionResult> AddCustomer(CustomerDto customerRequestDto)
@@ -63,7 +63,7 @@ namespace InventApplication.API.Controllers
             }
             else
             {
-                return BadRequest(new { message = Messages.NoData, currentDate = DateTime.Now });
+                return NoContent();
             }
         }
 
@@ -87,7 +87,7 @@ namespace InventApplication.API.Controllers
             }
             else
             {
-                return BadRequest(new { message = Messages.NoData, currentDate = DateTime.Now });
+                return NoContent();
             }
         }
 
@@ -112,7 +112,7 @@ namespace InventApplication.API.Controllers
             }
             else
             {
-                return BadRequest(new { message = Messages.NoData, currentDate = DateTime.Now });
+                return NoContent();
             }
         }
 

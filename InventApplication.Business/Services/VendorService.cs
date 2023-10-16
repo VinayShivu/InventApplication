@@ -1,4 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.Vendor;
 using InventApplication.Domain.Exceptions;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
@@ -37,7 +37,7 @@ namespace InventApplication.Business.Services
             }
             else
             {
-                throw new RepositoryException(Messages.VendorExists);
+                throw new ConflictException(Messages.VendorExists);
             }
         }
 
@@ -46,7 +46,7 @@ namespace InventApplication.Business.Services
             var result = await _vendorRepository.GetAllVendorAsync();
             if (result == null)
             {
-                throw new RepositoryException(Messages.NoData);
+                throw new CustomException(Messages.NoData);
             }
             return result.Select(vendor => vendor)
              .Select(vendor => new VendorResponseDto
@@ -69,7 +69,7 @@ namespace InventApplication.Business.Services
             var vendor = await _vendorRepository.GetVendorByIdAsync(vendorid);
             if (vendor == null)
             {
-                throw new RepositoryException(Messages.InvalidVendorId);
+                throw new NotFoundException(Messages.InvalidVendorId);
             }
             var result = new VendorResponseDto
             {
@@ -92,7 +92,7 @@ namespace InventApplication.Business.Services
             var vendor = await _vendorRepository.GetVendorByNameAsync(companyname);
             if (vendor == null)
             {
-                throw new RepositoryException(Messages.InvalidCompanyName);
+                throw new NotFoundException(Messages.InvalidCompanyName);
             }
             var result = new VendorResponseDto
             {
@@ -115,12 +115,12 @@ namespace InventApplication.Business.Services
             var vendor = await _vendorRepository.GetVendorByIdAsync(vendorid);
             if (vendor == null)
             {
-                throw new RepositoryException(Messages.InvalidVendorId);
+                throw new NotFoundException(Messages.InvalidVendorId);
             }
             var getvendor = _vendorRepository.GetVendorByNameAsync(vendorRequestUpdateDto.CompanyName).Result;
             if (getvendor != null && getvendor.VendorId != vendorid)
             {
-                throw new RepositoryException(Messages.VendorExists);
+                throw new ConflictException(Messages.VendorExists);
             }
             vendor.CompanyName = vendorRequestUpdateDto.CompanyName;
             vendor.VendorGST = vendorRequestUpdateDto.VendorGST;
@@ -139,7 +139,7 @@ namespace InventApplication.Business.Services
             var vendor = await _vendorRepository.GetVendorByIdAsync(vendorid);
             if (vendor == null)
             {
-                throw new RepositoryException(Messages.InvalidVendorId);
+                throw new NotFoundException(Messages.InvalidVendorId);
             }
             return await _vendorRepository.DeleteVendor(vendorid);
         }

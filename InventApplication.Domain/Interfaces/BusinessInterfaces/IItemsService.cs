@@ -1,4 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.Items;
 using InventApplication.Domain.Models;
 
 namespace InventApplication.Domain.Interfaces.BusinessInterfaces

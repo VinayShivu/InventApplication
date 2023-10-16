@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using InventApplication.Domain.Exceptions;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
 using InventApplication.Domain.Models.JWT;
@@ -38,7 +37,7 @@ namespace InventApplication.Infrastructure.Repositories
                 var result = await connection.QueryFirstOrDefaultAsync(sql, param);
                 if (result == null)
                 {
-                    throw new RepositoryException(Messages.InvalidToken);
+                    throw new Exception(Messages.InvalidToken);
                 }
                 RefreshToken existingRefreshToken = new RefreshToken()
                 {

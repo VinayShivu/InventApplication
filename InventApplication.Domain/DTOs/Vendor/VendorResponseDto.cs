@@ -1,4 +1,4 @@
-﻿namespace InventApplication.Domain.DTOs
+﻿namespace InventApplication.Domain.DTOs.Vendor
 {
     public class VendorResponseDto
     {

@@ -1,5 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
-using InventApplication.Domain.Exceptions;
+﻿using InventApplication.Domain.DTOs.User;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.JWT;
 using InventApplication.Domain.Interfaces.RepositoryInterfaces;
@@ -52,7 +51,7 @@ namespace InventApplication.Business.Services
                 }
                 catch (Exception)
                 {
-                    throw new RepositoryException(Messages.UserNotAuthorized);
+                    throw new Exception(Messages.UserNotAuthorized);
                 }
             }
             return result;
@@ -109,19 +108,19 @@ namespace InventApplication.Business.Services
 
             if (existingRefreshToken == null || existingRefreshToken.Expires <= DateTime.Now)
             {
-                throw new RepositoryException(Messages.TokenExpired);
+                throw new Exception(Messages.TokenExpired);
             }
 
             var principal = GetPrincipalFromExpiredToken(refreshTokenRequest.AccessToken);
             var username = principal?.Identity?.Name;
             if (checkUserLogin != username)
             {
-                throw new RepositoryException(Messages.InvalidUserClaimName);
+                throw new Exception(Messages.InvalidUserClaimName);
             }
             var getuser = _userRepository.GetByUserName(username).Result;
             if (getuser == null)
             {
-                throw new RepositoryException(Messages.InvalidToken);
+                throw new Exception(Messages.InvalidToken);
             }
             var jwtToken = GenerateJwtToken(getuser);
 

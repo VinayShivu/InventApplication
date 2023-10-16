@@ -1,4 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.User;
 using InventApplication.Domain.Models.JWT;
 
 namespace InventApplication.Domain.Interfaces.BusinessInterfaces

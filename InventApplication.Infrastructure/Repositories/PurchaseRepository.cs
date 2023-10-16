@@ -33,6 +33,7 @@ namespace InventApplication.Infrastructure.Repositories
                 string sql = @"INSERT INTO purchase (vendorid,vendorname,billno,billdate,paymentterms,duedate,itemsdata,totalbasicamount,totalgst,totaligst,totalamount) VALUES (@vendorid,@vendorname,@billno,@billdate,@paymentterms,@duedate,@itemsdata,@totalbasicamount,@totalgst,@totaligst,@totalamount)";
                 connection.Open();
                 result = await connection.ExecuteAsync(sql, purchase);
+
                 connection.Close();
             }
             return result > 0;

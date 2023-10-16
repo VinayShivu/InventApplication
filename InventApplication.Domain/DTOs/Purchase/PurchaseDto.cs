@@ -1,7 +1,8 @@
-﻿using InventApplication.Domain.Helpers;
+﻿using InventApplication.Domain.DTOs.Items;
+using InventApplication.Domain.Helpers;
 using System.ComponentModel.DataAnnotations;
 
-namespace InventApplication.Domain.DTOs
+namespace InventApplication.Domain.DTOs.Purchase
 {
     public class PurchaseDto
     {

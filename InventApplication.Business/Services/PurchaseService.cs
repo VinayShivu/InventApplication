@@ -1,4 +1,5 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.Items;
+using InventApplication.Domain.DTOs.Purchase;
 using InventApplication.Domain.Exceptions;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
@@ -32,19 +33,19 @@ namespace InventApplication.Business.Services
                 bool updateitem = await _purchaseRepository.UpdateItemStock(getitem.ItemId, totalstock);
                 if (!updateitem)
                 {
-                    throw new RepositoryException(Messages.UpdateItemStockError);
+                    throw new NotFoundException(Messages.UpdateItemStockError);
                 }
             }
             var getvendor = await _vendorRepository.GetVendorByIdAsync(purchase.VendorID);
             if (getvendor == null)
             {
-                throw new RepositoryException(Messages.InvalidVendorId);
+                throw new NotFoundException(Messages.InvalidVendorId);
             }
             decimal totalpayable = getvendor.Payables + purchase.TotalAmount;
             bool updatevendor = await _purchaseRepository.UpdatePayabletoVendor(purchase.VendorID, totalpayable);
             if (!updatevendor)
             {
-                throw new RepositoryException(Messages.UpdatePayabletoVendorError);
+                throw new NotFoundException(Messages.UpdatePayabletoVendorError);
             }
             var newPurchase = new Purchase
             {

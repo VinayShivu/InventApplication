@@ -2,7 +2,7 @@
 using InventApplication.Domain.Validators;
 using System.ComponentModel.DataAnnotations;
 
-namespace InventApplication.Domain.DTOs
+namespace InventApplication.Domain.DTOs.Vendor
 {
     public class VendorRequestDto
     {
@@ -10,7 +10,7 @@ namespace InventApplication.Domain.DTOs
         public string? CompanyName { get; set; }
         [Required(ErrorMessage = Messages.VendorGSTRequired)]
         public string? VendorGST { get; set; }
-        [ValidateEmailAttribute(ErrorMessage = Messages.InvalidEmail)]
+        [ValidateEmail(ErrorMessage = Messages.InvalidEmail)]
         public string? Email { get; set; }
         [Required(ErrorMessage = Messages.VendorPhoneRequired)]
         [RegularExpression(@"^[1-9][0-9]{9}$", ErrorMessage = Messages.InvalidPhoneNumber)]
@@ -38,7 +38,7 @@ namespace InventApplication.Domain.DTOs
         public string? Salutation { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        [ValidateEmailAttribute(ErrorMessage = Messages.InvalidEmail)]
+        [ValidateEmail(ErrorMessage = Messages.InvalidEmail)]
         public string? EmailAddress { get; set; }
         public string? WorkPhone { get; set; }
         [RegularExpression(@"^[1-9][0-9]{9}$", ErrorMessage = Messages.InvalidPhoneNumber)]

@@ -1,5 +1,4 @@
-﻿using InventApplication.Domain.Exceptions;
-using InventApplication.Domain.Interfaces.BusinessInterfaces;
+﻿using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
@@ -47,7 +46,7 @@ namespace InventApplication.Business.Services
             }
             catch (Exception ex)
             {
-                throw new RepositoryException($"Error in Email Sending : {ex.Message}");
+                throw new Exception($"Error in Email Sending : {ex.Message}");
             }
         }
 

@@ -2,7 +2,7 @@
 using InventApplication.Domain.Validators;
 using System.ComponentModel.DataAnnotations;
 
-namespace InventApplication.Domain.DTOs
+namespace InventApplication.Domain.DTOs.User
 {
     public class UserDto
     {
@@ -13,7 +13,7 @@ namespace InventApplication.Domain.DTOs
         [Required(ErrorMessage = Messages.PasswordRequired)]
         public string Password { get; set; }
 
-        [ValidateEmailAttribute(ErrorMessage = Messages.InvalidEmail)]
+        [ValidateEmail(ErrorMessage = Messages.InvalidEmail)]
         public string Email { get; set; }
         public string Roles { get; set; }
     }

@@ -1,4 +1,4 @@
-﻿using InventApplication.Domain.DTOs;
+﻿using InventApplication.Domain.DTOs.Purchase;
 using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +21,6 @@ namespace InventApplication.API.Controllers
         /// Add Purchase
         /// </summary>
         /// <param name="purchaseRequestDto"></param>
-        /// <param name="items"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
