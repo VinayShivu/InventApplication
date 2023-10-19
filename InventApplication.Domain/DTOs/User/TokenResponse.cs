@@ -1,6 +1,6 @@
 ﻿namespace InventApplication.Domain.DTOs.User
 {
-    public class TokenResponse
+    public record TokenResponse
     {
         public string? JWTToken { get; set; }
         public string? FirstName { get; set; }

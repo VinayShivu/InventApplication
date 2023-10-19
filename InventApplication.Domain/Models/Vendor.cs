@@ -2,7 +2,7 @@
 
 namespace InventApplication.Domain.Models
 {
-    public class Vendor
+    public record Vendor
     {
         [Key]
         public int VendorId { get; set; }

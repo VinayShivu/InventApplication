@@ -30,6 +30,11 @@ namespace InventApplication.IOC
             services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddTransient<IDropdownService, DropdownService>();
+            services.AddTransient<IDropdownRepository, DropdownRepository>();
+            services.AddTransient<IPurchaseOrderRepository, PurchaseOrderRepository>();
+            services.AddTransient<IPurchaseOrderService, PurchaseOrderService>();
+            services.AddTransient<IActivityLogRepository, ActivityLogRepository>();
         }
     }
 }

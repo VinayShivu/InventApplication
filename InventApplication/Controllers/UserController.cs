@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InventApplication.Controllers
 {
-    [Route("")]
+    [Route("api")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -30,7 +30,7 @@ namespace InventApplication.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        [Route("api/register")]
+        [Route("register")]
         public async Task<IActionResult> RegisterUser([FromBody] UserDto userDetails)
         {
             _logger.LogInformation("Register a User");
@@ -56,7 +56,7 @@ namespace InventApplication.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet]
-        [Route("api/login")]
+        [Route("login")]
         public async Task<IActionResult> Login(string username, string password)
         {
             _logger.LogInformation("Get All login response");
@@ -79,7 +79,7 @@ namespace InventApplication.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        [Route("api/refreshtoken")]
+        [Route("refreshtoken")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {
             _logger.LogInformation("Get Refreshtoken response");
@@ -102,7 +102,7 @@ namespace InventApplication.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        [Route("api/forgotpassword")]
+        [Route("forgotpassword")]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordRequestDto request)
         {
             _logger.LogInformation("Send Link to Reset Password");
@@ -127,7 +127,7 @@ namespace InventApplication.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        [Route("api/resetpassword")]
+        [Route("resetpassword")]
         public async Task<IActionResult> ResetPassword(ResetPasswordRequestDto request)
         {
             _logger.LogInformation("Reset Password");
@@ -152,7 +152,7 @@ namespace InventApplication.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        [Route("api/changepassword")]
+        [Route("changepassword")]
         public async Task<IActionResult> ChangePassword(ChangePasswordRequestDto request)
         {
             _logger.LogInformation("Change Password");

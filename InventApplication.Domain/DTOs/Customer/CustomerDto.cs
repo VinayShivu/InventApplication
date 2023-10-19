@@ -4,22 +4,22 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InventApplication.Domain.DTOs.Customer
 {
-    public class CustomerDto
+    public record CustomerDto
     {
         [Required(ErrorMessage = Messages.CompanyNameRequired)]
-        public string CompanyName { get; set; }
+        public string? CompanyName { get; set; }
         [Required(ErrorMessage = Messages.CustomerGSTRequired)]
-        public string CustomerGST { get; set; }
+        public string? CustomerGST { get; set; }
         [ValidateEmail(ErrorMessage = Messages.InvalidEmail)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [Required(ErrorMessage = Messages.CustomerPhoneRequired)]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^[1-9][0-9]{9}$", ErrorMessage = Messages.InvalidPhoneNumber)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
         [Required(ErrorMessage = Messages.CustomerAddressRequired)]
-        public string Address { get; set; }
+        public string? Address { get; set; }
         [Required(ErrorMessage = Messages.CustomerPrimaryContactNameRequired)]
-        public string PrimaryContactName { get; set; }
-        public string ContactPersons { get; set; }
+        public string? PrimaryContactName { get; set; }
+        public string? ContactPersons { get; set; }
     }
 }

@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InventApplication.Domain.DTOs.User
 {
-    public class UserDto
+    public record UserDto
     {
         [Required(ErrorMessage = Messages.CompanyNameRequired)]
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         [RegularExpression(@".{2,32}", ErrorMessage = Messages.Min2Max32)]
         [Required(ErrorMessage = Messages.PasswordRequired)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         [ValidateEmail(ErrorMessage = Messages.InvalidEmail)]
-        public string Email { get; set; }
-        public string Roles { get; set; }
+        public string? Email { get; set; }
+        public string? Roles { get; set; }
     }
 }

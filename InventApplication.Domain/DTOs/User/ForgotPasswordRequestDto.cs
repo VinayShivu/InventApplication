@@ -3,9 +3,9 @@ using InventApplication.Domain.Validators;
 
 namespace InventApplication.Domain.DTOs.User
 {
-    public class ForgotPasswordRequestDto
+    public record ForgotPasswordRequestDto
     {
         [ValidateEmail(ErrorMessage = Messages.InvalidEmail)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
     }
 }

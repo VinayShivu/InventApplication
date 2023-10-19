@@ -125,5 +125,15 @@
         public const string UpdateItemStockError = "Error in Updating Item Stock during Purchase";
         public const string UpdatePayabletoVendorError = "Error in Updating Payable Amopunt to Vendor during Purchase";
         #endregion
+
+        #region PurchaseOrder
+        public const string PurchaseOrderRegisterSuccess = "Purchase Order added successfully";
+        public const string PurchaseOrderUpdateSuccess = "Purchase Order update successfully";
+        public const string PurchaseOrderDeleteSuccess = "Purchase Order delete successfully";
+        public const string PurchaseOrderRegisterError = "Error in adding Purchase Order";
+        public const string PurchaseOrderDeleteError = "Error in deleting Purchase Order";
+        public const string PurchaseOrderUpdateError = "Error in update Purchase Order";
+        public const string InvalidPurchaseOrderId = "Purchase Order by this Id not exists";
+        #endregion
     }
 }

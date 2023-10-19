@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InventApplication.API.Controllers
 {
-    [Route("api/")]
+    [Route("api")]
     [ApiController]
     public class CustomerController : ControllerBase
     {

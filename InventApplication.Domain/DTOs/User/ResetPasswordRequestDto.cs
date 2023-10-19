@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InventApplication.Domain.DTOs.User
 {
-    public class ResetPasswordRequestDto
+    public record ResetPasswordRequestDto
     {
         [Required(ErrorMessage = Messages.AccessTokenRequired)]
-        public string PasswordResetToken { get; set; } = string.Empty;
+        public string? PasswordResetToken { get; set; } = string.Empty;
 
         [RegularExpression(@".{2,32}", ErrorMessage = Messages.Min2Max32)]
         [Required(ErrorMessage = Messages.PasswordRequired)]
-        public string NewPassword { get; set; }
+        public string? NewPassword { get; set; }
     }
 }

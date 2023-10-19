@@ -1,6 +1,6 @@
 ﻿namespace InventApplication.Domain.DTOs.Vendor
 {
-    public class VendorResponseDto
+    public record VendorResponseDto
     {
         public int VendorId { get; set; }
         public string? CompanyName { get; set; }

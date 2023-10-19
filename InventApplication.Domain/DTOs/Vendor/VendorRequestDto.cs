@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InventApplication.Domain.DTOs.Vendor
 {
-    public class VendorRequestDto
+    public record VendorRequestDto
     {
         [Required(ErrorMessage = Messages.CompanyNameRequired)]
         public string? CompanyName { get; set; }

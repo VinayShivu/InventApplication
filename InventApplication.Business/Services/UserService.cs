@@ -85,7 +85,7 @@ namespace InventApplication.Business.Services
                 }
 
                 jwtToken = _jwtService.GenerateJwtToken(user);
-
+                jwtToken.UserData = user;
                 await _refreshTokenRepository.UpdateRefreshTokenAsync(jwtToken, user.UserId);
             }
             return jwtToken;
