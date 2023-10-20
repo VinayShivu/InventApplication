@@ -1,31 +1,31 @@
-﻿using InventApplication.Domain.Helpers;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-
-namespace InventApplication.Domain.Models
+﻿namespace InventApplication.Domain.DTOs.PurchaseOrder
 {
-    public record PurchaseOrder
+    public record PurchaseOrderDto
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = Messages.VendorIdRequired)]
         public int VendorID { get; set; }
-        [JsonIgnore]
+        public string? VendorName { get; set; }
         public string? PurchaseOrderNumber { get; set; }
         public string? ReferenceNumber { get; set; }
         public DateTime? PODate { get; set; }
         public DateTime? ExpectedDeliveryDate { get; set; }
         public string? PaymentTerms { get; set; }
         public string? TermsandConditions { get; set; }
-        public Boolean? IsReceived { get; set; } 
+        public Boolean? IsReceived { get; set; }
         public int CreatedBy { get; set; }
-        public List<POItemDetails>? ItemDetails { get; set; }
+        public decimal POSubTotal { get; set; }
+        public decimal POGSTTotal { get; set; }
+        public decimal POGrandTotal { get; set; }
+        public List<POItemDetailsView>? ItemDetails { get; set; }
     }
-    public record POItemDetails
+
+    public record POItemDetailsView
     {
         public int ItemId { get; set; }
-        public int PurchaseQty { get; set; }
         public decimal PurchasePrice { get; set; }
+        public int PurchaseQty { get; set; }
+        public bool IsIGST { get; set; }
+        public int GST { get; set; }
         public decimal SubTotal { get; set; }
         public decimal GSTTotal { get; set; }
         public decimal GrandTotal { get; set; }

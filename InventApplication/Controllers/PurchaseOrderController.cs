@@ -1,4 +1,5 @@
-﻿using InventApplication.Domain.Helpers;
+﻿using InventApplication.Domain.DTOs.PurchaseOrder;
+using InventApplication.Domain.Helpers;
 using InventApplication.Domain.Interfaces.BusinessInterfaces;
 using InventApplication.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -39,5 +40,19 @@ namespace InventApplication.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Get the Purchase Order List.
+        /// </summary>
+        /// <param name="getPurchaseOrderRequest">Search Purchase Order request.</param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPost]
+        [Route("purchaseorderlist")]
+        public async Task<IActionResult> GetPurchaseOrderList(PurchaseOrderSearchRequestDto getPurchaseOrderRequest)
+        {
+            List<PurchaseOrderViewListDto> purchaseOrderList = await _purchaseorderService.GetPurchaseOrderist(getPurchaseOrderRequest);
+            return Ok(purchaseOrderList);
+        }
     }
 }
