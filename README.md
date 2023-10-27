@@ -13,4 +13,5 @@ Technologies Used for Learning:
 6. Password hash and verify using Bcrypt
 7. Swagger Setup for JWT
 8. database health check
-9. Manually Exception Handling middleware 
+9. Manually Exception Handling middleware
+10. Pagination for List and SQL Functions
