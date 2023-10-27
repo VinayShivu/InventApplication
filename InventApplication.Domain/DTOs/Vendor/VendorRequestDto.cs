@@ -20,6 +20,7 @@ namespace InventApplication.Domain.DTOs.Vendor
         [Required(ErrorMessage = Messages.VendorPrimaryContactNameRequired)]
         public string? PrimaryContactName { get; set; }
         public virtual List<ContactPersons>? ContactPersons { get; set; }
+        public string? IsIGST { get; set; }
         public string? Remarks { get; set; }
     }
 

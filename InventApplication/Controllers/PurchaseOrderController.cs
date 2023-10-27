@@ -54,5 +54,20 @@ namespace InventApplication.API.Controllers
             List<PurchaseOrderViewListDto> purchaseOrderList = await _purchaseorderService.GetPurchaseOrderist(getPurchaseOrderRequest);
             return Ok(purchaseOrderList);
         }
+
+        /// <summary>
+        /// Get the requested Purchase Order Details.
+        /// </summary>
+        /// <param name="id">Purchase Order Id</param>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet]
+        [Route("purchaseorder/{id}")]
+        public async Task<IActionResult> GetPurchaseOrder(int id)
+        {
+            PurchaseOrderDto purchaseOrderData = await _purchaseorderService.GetPurchaseOrder(id);
+            return Ok(purchaseOrderData);
+        }
     }
 }

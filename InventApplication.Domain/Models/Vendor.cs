@@ -14,6 +14,7 @@ namespace InventApplication.Domain.Models
         public string? PrimaryContactName { get; set; }
         public string? ContactPersons { get; set; }
         public decimal Payables { get; set; }
+        public string? IsIGST { get; set; }
         public string? Remarks { get; set; }
     }
 }

@@ -11,6 +11,7 @@
         public string? PrimaryContactName { get; set; }
         public virtual List<ContactPersons>? ContactPersons { get; set; }
         public decimal Payables { get; set; }
+        public string? IsIGST { get; set; }
         public string? Remarks { get; set; }
     }
 }

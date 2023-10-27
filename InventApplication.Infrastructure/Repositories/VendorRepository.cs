@@ -30,7 +30,7 @@ namespace InventApplication.Infrastructure.Repositories
             int result = 0;
             using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
             {
-                string sql = @"INSERT INTO vendor (companyname,vendorgst,email,phone,address,primarycontactname,contactpersons,payables,remarks) VALUES (@companyname,@vendorgst,@email,@phone,@address,@primarycontactname,@contactpersons,@payables,@remarks)";
+                string sql = @"INSERT INTO vendor (companyname,vendorgst,email,phone,address,primarycontactname,contactpersons,payables,isigst,remarks) VALUES (@companyname,@vendorgst,@email,@phone,@address,@primarycontactname,@contactpersons,@payables,@isigst,@remarks)";
                 connection.Open();
                 result = await connection.ExecuteAsync(sql, vendor);
                 connection.Close();
@@ -83,7 +83,7 @@ namespace InventApplication.Infrastructure.Repositories
             {
                 using (var connection = new SqlConnection(_dataAccess.GetConnectionString()))
                 {
-                    string sql = @"UPDATE vendor Set companyname=@companyname,vendorgst=@vendorgst,email=@email,phone=@phone,address=@address,primarycontactname=@primarycontactname,contactpersons=@contactpersons,remarks=@remarks WHERE vendorid=@vendorid";
+                    string sql = @"UPDATE vendor Set companyname=@companyname,vendorgst=@vendorgst,email=@email,phone=@phone,address=@address,primarycontactname=@primarycontactname,contactpersons=@contactpersons,isigst=@isigst,remarks=@remarks WHERE vendorid=@vendorid";
                     connection.Open();
                     await connection.QueryAsync(sql, vendorUpdate);
                     connection.Close();

@@ -38,7 +38,7 @@ namespace InventApplication.Business.Services
 
         public async Task<List<PurchaseOrderViewListDto>> GetPurchaseOrderist(PurchaseOrderSearchRequestDto getPurchaseOrderRequest)
         {
-           // getPurchaseOrderRequest.SortField = GetSortFieldName(getPurchaseOrderRequest.SortField);
+            // getPurchaseOrderRequest.SortField = GetSortFieldName(getPurchaseOrderRequest.SortField);
             List<PurchaseOrderViewListDto> purchaseOrderList = await _purchaseOrderRepository.GetPurchaseOrderist(getPurchaseOrderRequest);
             if (!purchaseOrderList.Any() && purchaseOrderList.Count == 0)
             {
@@ -46,7 +46,20 @@ namespace InventApplication.Business.Services
             }
             return purchaseOrderList;
         }
+
+        public async Task<PurchaseOrderDto> GetPurchaseOrder(int id)
+        {
+            PurchaseOrderDto purchaseOrderData = await _purchaseOrderRepository.GetPurchaseOrder(id);
+            if (purchaseOrderData != null && purchaseOrderData.Id > 0)
+            {
+
+                purchaseOrderData.POSubTotal = purchaseOrderData.ItemDetails.Sum(x => x.SubTotal);
+                purchaseOrderData.POGSTTotal = purchaseOrderData.ItemDetails.Sum(x => x.GSTTotal);
+                purchaseOrderData.POGrandTotal = purchaseOrderData.ItemDetails.Sum(x => x.GrandTotal);
+                return purchaseOrderData;
+            }
+            throw new CustomException(Messages.NoData);
+        }
         #endregion
     }
 }
-    

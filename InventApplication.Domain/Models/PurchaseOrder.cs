@@ -1,5 +1,4 @@
 ﻿using InventApplication.Domain.Helpers;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -17,7 +16,7 @@ namespace InventApplication.Domain.Models
         public DateTime? ExpectedDeliveryDate { get; set; }
         public string? PaymentTerms { get; set; }
         public string? TermsandConditions { get; set; }
-        public Boolean? IsReceived { get; set; } 
+        public Boolean? IsReceived { get; set; }
         public int CreatedBy { get; set; }
         public List<POItemDetails>? ItemDetails { get; set; }
     }

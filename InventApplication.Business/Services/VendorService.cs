@@ -29,6 +29,7 @@ namespace InventApplication.Business.Services
                     Address = JsonConvert.SerializeObject(vendor.Address),
                     PrimaryContactName = vendor.PrimaryContactName,
                     ContactPersons = JsonConvert.SerializeObject(vendor.ContactPersons),
+                    IsIGST = vendor.IsIGST,
                     Remarks = vendor.Remarks
                 };
                 bool retVal = await _vendorRepository.AddVendor(newVendor);
@@ -60,6 +61,7 @@ namespace InventApplication.Business.Services
                  PrimaryContactName = vendor.PrimaryContactName,
                  ContactPersons = JsonConvert.DeserializeObject<List<ContactPersons>>(vendor.ContactPersons),
                  Payables = vendor.Payables,
+                 IsIGST = vendor.IsIGST,
                  Remarks = vendor.Remarks
              });
         }
@@ -82,6 +84,7 @@ namespace InventApplication.Business.Services
                 PrimaryContactName = vendor.PrimaryContactName,
                 ContactPersons = JsonConvert.DeserializeObject<List<ContactPersons>>(vendor.ContactPersons),
                 Payables = vendor.Payables,
+                IsIGST = vendor.IsIGST,
                 Remarks = vendor.Remarks
             };
             return result;
@@ -105,6 +108,7 @@ namespace InventApplication.Business.Services
                 PrimaryContactName = vendor.PrimaryContactName,
                 ContactPersons = JsonConvert.DeserializeObject<List<ContactPersons>>(vendor.ContactPersons),
                 Payables = vendor.Payables,
+                IsIGST = vendor.IsIGST,
                 Remarks = vendor.Remarks
             };
             return result;
@@ -129,6 +133,7 @@ namespace InventApplication.Business.Services
             vendor.Address = JsonConvert.SerializeObject(vendorRequestUpdateDto.Address);
             vendor.PrimaryContactName = vendorRequestUpdateDto.PrimaryContactName;
             vendor.ContactPersons = JsonConvert.SerializeObject(vendorRequestUpdateDto.ContactPersons);
+            vendor.IsIGST = vendorRequestUpdateDto.IsIGST;
             vendor.Remarks = vendorRequestUpdateDto.Remarks;
             bool retval = await _vendorRepository.UpdateVendor(vendor, vendorid);
             return retval;

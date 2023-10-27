@@ -11,7 +11,7 @@
         public DateTime? ExpectedDeliveryDate { get; set; }
         public string? PaymentTerms { get; set; }
         public string? TermsandConditions { get; set; }
-        public Boolean? IsReceived { get; set; }
+        public bool IsReceived { get; set; }
         public int CreatedBy { get; set; }
         public decimal POSubTotal { get; set; }
         public decimal POGSTTotal { get; set; }
@@ -24,7 +24,6 @@
         public int ItemId { get; set; }
         public decimal PurchasePrice { get; set; }
         public int PurchaseQty { get; set; }
-        public bool IsIGST { get; set; }
         public int GST { get; set; }
         public decimal SubTotal { get; set; }
         public decimal GSTTotal { get; set; }
